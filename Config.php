@@ -8,7 +8,7 @@ $db_name = 'ocawbms';
 //Initializes MySQLi
 $link = mysqli_init();
 
-mysqli_ssl_set($link,NULL,NULL, "/var/www/html/DigiCertGlobalRootG2.crt.pem", NULL, NULL);
+mysqli_ssl_set($link,NULL,NULL, "/var/www/html/DigiCertGlobalRootCA.pem", NULL, NULL);
 
 // Establish the connection
 mysqli_real_connect($link, 'gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms', 3306, NULL, MYSQLI_CLIENT_SSL);
