@@ -1,11 +1,15 @@
 <?php
 session_start(); //start the session
-$link = mysqli_init();
-mysqli_ssl_set($link,NULL,NULL, "/var/www/html/DigiCertGlobalRootCA.crt.pem", NULL, NULL);
-mysqli_real_connect($link, 'gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms', 3306, MYSQLI_CLIENT_SSL);
-if (mysqli_connect_errno($link)) {
-die('Failed to connect to MySQL: '.mysqli_connect_error());
+
+define('DB_SERVER', 'gasmeter.mysql.database.azure.com');
+define('DB_USERNAME', 'gasmeter');
+define('DB_PASSWORD', 'AdminLogin123');
+define('DB_NAME', 'ocawbms');
+ 
+$link = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME, ); //connect to the database
+ 
+if($link === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
 }
 
 ?>
-
