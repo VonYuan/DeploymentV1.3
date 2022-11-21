@@ -1,23 +1,13 @@
 <?php
 //Initialize the session
-session_start();
+
 
 // Check if the user is already logged in, if yes then redirect him to welcome page
 // if(isset($_SESSION["loggedin_admin"]) && $_SESSION["loggedin_admin"] === true){
 //   header("location: Admin-Dashboard.php");
 //   exit;
 // }
-
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
-define('DB_NAME', 'ocawbms');
-
-$link = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-
-if ($link === false) {
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-}
+require_once 'Config.php';
 
 // Define variables and initialize with empty values
 $admin_username = $admin_password = "";
