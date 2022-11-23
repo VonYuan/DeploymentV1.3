@@ -18,8 +18,7 @@ $sql_month = "SELECT * FROM bill_month";
 $records_month = mysqli_query($link, $sql_month);
 $data_month = mysqli_fetch_assoc($records_month);
 $bill_month = $data_month['month'];
-
-
+$bill_due_date = $data_month['Due_Date'];
 
 
 $user_id = $_GET['user_id'];
@@ -27,10 +26,6 @@ $user_email = $_POST['user_email'];
 $accountNum = $_POST['accountNum'];
 $meter = $units = $charge = $total = $month = "";
 $meter_err = $units_err = $charge_err = $total_err = "";
-
-
-
-
 
 
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -80,7 +75,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     
 
-    $sql = "INSERT INTO current_bill (user_id, user_account, month, meter, units, charge,charge_current_Month,total,overall_payment, credit,amount_pay,due) VALUES ('$user_id', '$accountNum', '$month', '$meter', '$units', '$charges','$charges', '$total','$total','0', '0','$due')";
+    $sql = "INSERT INTO current_bill (user_id, user_account, month, meter, units, charge,charge_current_Month,total,overall_payment, amount_pay,due) VALUES ('$user_id', '$accountNum', '$month', '$meter', '$units', '$charges','$charges', '$total','$total', '0','$bill_due_date')";
     
 
     

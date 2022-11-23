@@ -9,6 +9,7 @@ $sql_month = "SELECT * FROM bill_month";
 $records_month = mysqli_query($link, $sql_month);
 $data_month = mysqli_fetch_assoc($records_month);
 $bill_month = $data_month['month'];
+$bill_due_date = $data_month['Due_Date'];
 
 $recordsDetails = mysqli_query($link, $sql_record);
 $dataDetails = mysqli_fetch_assoc($recordsDetails);
@@ -49,11 +50,9 @@ $previousmonthbill = mysqli_fetch_assoc($records_previousbill);
 if(!empty($previousmonthbill['meter']))
 {
     $previousmeter=$previousmonthbill['meter'];
-    echo $previousmeter;
 }else
 {
     $previousmeter=0;
-    echo $previousmeter;
 }
 
 
@@ -76,8 +75,9 @@ if(!empty($previousmonthbill['meter']))
 
 <div class="row justify-content-center wrapper">
     <div class="col-lg-12 p-4 pt-12" style="background-color: #E5E4E2;">
-        <div class="row gutters-sm">
-            <div class="col-md-4 mb-3">
+    <div class="row align-items-center ">
+        <div class="form-group col-md-12 mx-auto">
+        <div class="card-body d-flex flex-column align-items-center">
                 <div class="card border shadow-lg p-2">
                     <h2 class="align-items-center text-center">Profile</h2>
                     <div class="card-body">
@@ -108,46 +108,46 @@ if(!empty($previousmonthbill['meter']))
                             <div class="card mb-3">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <h6 class="mb-0">Gender</h6>
                                         </div>
-                                        <div class="col-sm-9 text-secondary">
+                                        <div class="col-sm-8 text-secondary">
                                             <?php echo $data['gender'] ?>
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <h6 class="mb-0">NIC Number</h6>
                                         </div>
-                                        <div class="col-sm-9 text-secondary">
+                                        <div class="col-sm-6 text-secondary">
                                             <?php echo $data['user_nic'] ?>
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <h6 class="mb-0">Email Address</h6>
                                         </div>
-                                        <div class="col-sm-9 text-secondary">
+                                        <div class="col-sm-8 text-secondary">
                                             <?php echo $data['user_email'] ?>
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <h6 class="mb-0">Contact Number</h6>
                                         </div>
-                                        <div class="col-sm-9 text-secondary">
+                                        <div class="col-sm-6 text-secondary">
                                             <?php echo $data['user_contact'] ?>
                                         </div>
                                     </div>
                                     <hr>
                                     <div class="row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-4">
                                             <h6 class="mb-0">Joined</h6>
                                         </div>
-                                        <div class="col-sm-9 text-secondary">
+                                        <div class="col-sm-8 text-secondary">
                                             <?php echo $data['created_at'] ?>
                                         </div>
                                     </div>
@@ -159,7 +159,9 @@ if(!empty($previousmonthbill['meter']))
             </div>
              <!-- Profile end here -->
                                 <!--button-->
-                                <div class="form-group col-md-6">
+                                <div class="d-flex justify-content-center">
+                                <div class="form-group col-md-5 p-5 mx-auto">
+                                
                                     <button class="btn btn-success btn-lg btn-block myBtn" data-bs-toggle="modal"
                                         data-bs-target="#updateBill">Update Bill</button>
 
@@ -257,13 +259,12 @@ if(!empty($previousmonthbill['meter']))
                                                                 placeholder="Ex:1500.00" required>
                                                             <span class="help-block"><?php #echo $total_err; ?></span>
                                                         </div>-->
-                                                                
+                                                        
                                                         <div class="form-group">
                                                             <label>Due Date</label>
-                                                            <input type="date" class="form-control" name="due" required
-                                                                placeholder="Click the Calender Icon">
+                                                            <input type="date" class="form-control" name="due" 
+                                                            value="<?php echo $bill_due_date ?>" disabled >
                                                         </div>
-
 
                                                 </div>
                                                 <div class="modal-footer">

@@ -16,8 +16,7 @@ require '../../vendor/autoload.php';
 $mail = new PHPMailer(true);
 
 function allUsers(){
-    $db = mysqli_connect("gasmeter.mysql.database.azure.com","gasmeter","AdminLogin123","ocawbms");
-
+    $db = new mysqli('localhost', 'root', '', 'ocawbms');
     $all = mysqli_query($db, "SELECT * FROM users");
     $all_users = mysqli_num_rows($all);
     return $all_users;
@@ -54,8 +53,7 @@ $stat = $_SESSION['var'] = 1;
                                 </tr>
                             </thead>
                             <?php
-                            
-            $db = mysqli_connect("gasmeter.mysql.database.azure.com","gasmeter","AdminLogin123","ocawbms");
+            $db = mysqli_connect("localhost","root","","ocawbms");
             $records = mysqli_query($db,"SELECT user_id, user_address, name,user_account FROM current_details");
 
             while($data=mysqli_fetch_array($records)){
