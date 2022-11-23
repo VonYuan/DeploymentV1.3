@@ -80,7 +80,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
     
 
-    $sql = "INSERT INTO current_bill (user_id, user_account, month, meter, units, charge,charge_current_Month,total,overall_payment, amount_pay,due) VALUES ('$user_id', '$accountNum', '$month', '$meter', '$units', '$charges','$charges', '$total','$total', '0','$due')";
+    $sql = "INSERT INTO current_bill (user_id, user_account, month, meter, units, charge,charge_current_Month,total,overall_payment, credit,amount_pay,due) VALUES ('$user_id', '$accountNum', '$month', '$meter', '$units', '$charges','$charges', '$total','$total','0' '0','$due')";
     
 
     
