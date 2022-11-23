@@ -1,5 +1,7 @@
 <?php
 require_once 'Admin-Header.php';
+require_once '../../Config.php';
+
 $uid = $_GET['user_id'];
 $sql_record = "SELECT * FROM current_details WHERE user_id='" . $uid . "'";
 
