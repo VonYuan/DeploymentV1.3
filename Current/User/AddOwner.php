@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
            $account_exist_err="Account Number didnt exist";
             echo $name;
             echo $count;
-            echo "fail";
+            echo "fails";
             
         }else
         {
