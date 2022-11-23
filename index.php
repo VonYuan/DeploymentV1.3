@@ -108,7 +108,7 @@ require_once '../Config.php';
             </h2>
             <a href="../User-Register.php" class="download-btn"><i class="bx bx-plus"></i> User Sign up</a>
             <a href="../User-Login.php" class="download-btn"><i class="bx bx-user"></i> User Log in</a>
-            <a href="../Reader-Login.php" class="download-btn"><i class="bx bx-user"></i> Meter Reader Log in</a>
+            <a href="../MeterReader-Login.php" class="download-btn"><i class="bx bx-user"></i> Meter Reader Log in</a>
               
           </div>
         </div>
