@@ -156,8 +156,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         // Prepare an insert statement
-        $sql = "INSERT INTO current_details (user_id, name, user_address, user_area, user_account, category) VALUES ($user_id, $name,$user_address, $user_area, $user_account,$user_category)";
-        $insertbil=mysqli_query($link,$sql);
+        $sqlinsertion = "INSERT INTO current_details (user_id, name, user_address, user_area, user_account, category) VALUES ($user_id, $name,$user_address, $user_area, $user_account,$user_category)";
+        mysqli_query($link,$sqlinsertion);
         echo "<script> location.href='User-Dashboard.php'; </script>";
 
         /*if ($stmt = $link->prepare($sql)) {
