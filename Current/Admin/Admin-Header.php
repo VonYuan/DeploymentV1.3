@@ -67,7 +67,7 @@ if (!isset($_SESSION['loggedin_admin'])) {
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="charts.php">Data Analysis</a>
+                            <a class="nav-link" href="chart.php">Data Analysis</a>
                         </li>
                            
                     </ul>
