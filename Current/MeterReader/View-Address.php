@@ -16,8 +16,18 @@ require '../../vendor/autoload.php';
 $mail = new PHPMailer(true);
 
 function allUsers(){
-    $db = new mysqli('gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms');
-    $all = mysqli_query($db, "SELECT * FROM users");
+    define('DB_SERVER', 'gasmeter.mysql.database.azure.com');
+    define('DB_USERNAME', 'gasmeter');
+    define('DB_PASSWORD', 'AdminLogin123');
+    define('DB_NAME', 'ocawbms');
+ 
+$link = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME, ); //connect to the database
+ 
+if($link === false){
+    die("ERROR: Could not connect. " . mysqli_connect_error());
+}
+
+    $all = mysqli_query($link, "SELECT * FROM users");
     $all_users = mysqli_num_rows($all);
     return $all_users;
   }
