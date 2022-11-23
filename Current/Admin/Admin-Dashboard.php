@@ -30,7 +30,7 @@ if (!isset($_SESSION['loggedin_admin'])) {
 
 function pendingPay()
 {
-    $db = new mysqli('localhost', 'root', '', 'ocawbms');
+    $db = new mysqli('gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms');
     $sql_month = "SELECT * FROM bill_month";
     $records_month = mysqli_query($db, $sql_month);
     $data_month = mysqli_fetch_assoc($records_month);
@@ -41,7 +41,7 @@ function pendingPay()
 }
 function totalPay()
 {
-    $db = new mysqli('localhost', 'root', '', 'ocawbms');
+    $db = new mysqli('gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms');
     $sql_month = "SELECT * FROM bill_month";
     $records_month = mysqli_query($db, $sql_month);
     $data_month = mysqli_fetch_assoc($records_month);
@@ -53,7 +53,7 @@ function totalPay()
 
 
 function allUsers(){
-    $db = new mysqli('localhost', 'root', '', 'ocawbms');
+    $db = new mysqli('gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms');
     $all = mysqli_query($db, "SELECT * FROM users");
     $all_users = mysqli_num_rows($all);
     return $all_users;
