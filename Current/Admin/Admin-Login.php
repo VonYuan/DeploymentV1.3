@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $_SESSION["admin_name"] = $admin_username;
 
                             // Redirect user to welcome page
-                            header("location: Current/Admin/Admin-Dashboard.php");
+                            header("location: Admin-Dashboard.php");
                         } else {
                             // Display an error message if password is not valid
                             $password_err = "The password you entered was not valid.";
