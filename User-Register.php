@@ -185,14 +185,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 try {
                     //Server settings
                     $mail->isSMTP();
-                    $mail->Host = 'smtp.mailtrap.io';
+                    $mail->Host = 'smtp.gmail.com';
                     $mail->SMTPAuth = true;
-                    $mail->Username = "13a4d424c492e1";
-                    $mail->Password = "b0610fb36617fb";
+                    $mail->Username = "finalprojectb2022@gmail.com";
+                    $mail->Password = "gagiebenoxdmigpm";
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                     $mail->Port = 587;
 
                     //Recipients
-                    $mail->setFrom("13a4d424c492e1", "b0610fb36617fb");
+                    $mail->setFrom("finalprojectb2022@gmail.com", "gagiebenoxdmigpm");
                     $mail->addAddress($user_email);     // Add a recipient
 
                     // Content
@@ -413,7 +414,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 <div class="form-group">
                                     <label>Username</label>
-                                    <input type="text" class="form-control" name="user_name" placeholder="Enter a Username" value="<?php echo $user_name; ?>" required>
+                                    <input type="text" class="form-control" name="user_name" placeholder="Enter a Username" value="<?php echo $user_name; ?>">
                                     <span class="help-block"><?php echo $username_err; ?></span>
                                 </div><br>
 
@@ -429,33 +430,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                     <div class=" col-md-6">
                                         <label>NIC Number</label>
-                                        <input type="text" class="form-control" name="user_nic" placeholder="Enter the NIC Number" value="<?php echo $user_nic; ?>" required>
+                                        <input type="text" class="form-control" name="user_nic" placeholder="Enter the NIC Number" value="<?php echo $user_nic; ?>">
                                         <span class="help-block"><?php echo $nic_err; ?></span>
                                     </div>
                                 </div><br>
 
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="text" class="form-control" name="user_email" placeholder="Enter Email" value="<?php echo $user_email; ?>" required>
+                                    <input type="text" class="form-control" name="user_email" placeholder="Enter Email" value="<?php echo $user_email; ?>">
                                     <span class="help-block"><?php echo $email_err; ?></span>
                                 </div><br>
 
                                 <div class="form-group">
                                     <label>Contact No</label>
-                                    <input type="text" class="form-control" name="user_contact" placeholder="Enter a Contact Number" value="<?php echo $user_contact; ?>" required>
+                                    <input type="text" class="form-control" name="user_contact" placeholder="Enter a Contact Number" value="<?php echo $user_contact; ?>" >
                                     <span class="help-block"><?php echo $contact_err; ?></span>
                                 </div><br>
 
                                 <div class="row">
                                     <div class=" col-md-6">
                                         <label>Password</label>
-                                        <input type="password" class="form-control" name="user_password" placeholder="Enter Password" required>
+                                        <input type="password" class="form-control" name="user_password" placeholder="Enter Password" >
                                         <span class="help-block"><?php echo $password_err; ?></span>
                                     </div>
 
                                     <div class=" col-md-6">
                                         <label>Confirm Password</label>
-                                        <input type="password" class="form-control" name="confirm_password" placeholder="Re-Enter Password" required>
+                                        <input type="password" class="form-control" name="confirm_password" placeholder="Re-Enter Password" >
                                         <span class="help-block"><?php echo $confirm_password_err; ?></span>
                                     </div>
                                 </div>
