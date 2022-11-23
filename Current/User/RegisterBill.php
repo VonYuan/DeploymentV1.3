@@ -156,9 +156,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         // Prepare an insert statement
-        $sql = "INSERT INTO current_details (user_id, name, user_address, user_area, user_account, category) VALUES (?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO current_details (user_id, name, user_address, user_area, user_account, category) VALUES ($user_id, $name,$user_address, $user_area, $user_account,$user_category)";
+        $insertbil=mysqli_query($link,$sql);
+        echo "<script> location.href='User-Dashboard.php'; </script>";
 
-        if ($stmt = $link->prepare($sql)) {
+        /*if ($stmt = $link->prepare($sql)) {
 
 
             // Bind variables to the prepared statement as parameters
@@ -189,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Close statement
             $stmt->close();
-        }
+        }*/
     }
 
     // Close connection
