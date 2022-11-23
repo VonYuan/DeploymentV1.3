@@ -58,7 +58,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     #}
     
     $prevmeter = $_POST["prevmeter"];
-    
+
     $month = $bill_month;
     $due = $_POST['due'];
     $accountNum=$_POST['accountNum'];
@@ -72,13 +72,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $total = mysqli_fetch_array($records_totalamount);
     $total=$total[0]+$charges;
 
-    
-    
-
-    $sql = "INSERT INTO current_bill (user_id, user_account, month, meter, units, charge,charge_current_Month,total,overall_payment,credit ,amount_pay,due) VALUES ('$user_id', '$accountNum', '$month', '$meter', '$units', '$charges','$charges', '$total','$total', '0','0','$bill_due_date')";
-    
-
-    
+    $sql = "INSERT INTO current_bill (user_id, user_account, month, meter, units, charge,charge_current_Month,total,overall_payment,credit ,amount_pay,due) 
+                                VALUES ('$user_id', '$accountNum', '$month', '$meter', '$units', '$charges','$charges', '$total','$total', '0','0','$bill_due_date')";
     $update = "UPDATE image_upload SET status = 'Prepared' WHERE user_id = '$user_id'";
     if(mysqli_query($link, $sql) && mysqli_query($link,$update)){
         try {

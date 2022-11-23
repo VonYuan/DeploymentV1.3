@@ -203,7 +203,9 @@ $dataDetails = mysqli_fetch_array($records_details);
                                                                     $previouscharge=$previousmonthbill['charge_current_Month'];
                                                                     
                                                                 }
-                                                                
+                                                                 
+                                                                $CAmount=abs($Credit['total']);
+                                                                $totalpay=$data_bill['total']-$CAmount;
 
                                                                 ?>
                                                             <div class="form-group col-md-6">
@@ -237,7 +239,7 @@ $dataDetails = mysqli_fetch_array($records_details);
 
                                                                 <div class="form-group col-md-6">
                                                                     <label>Total Amount Due (Rm.)</label>
-                                                                    <input type="text" class="form-control" value="<?php echo $data_bill['total'] ?>" disabled>
+                                                                    <input type="text" class="form-control" value="<?php echo $totalpay ?>" disabled>
                                                                 </div>
                                                             </div>
 

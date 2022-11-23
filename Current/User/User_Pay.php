@@ -590,7 +590,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label>Total Amount Due (Rs.)</label>
+                                    <label>Total Amount Due (RM.)</label>
                                     <input type="text" class="form-control" value="<?php echo $bill['total'] ?>"
                                         disabled>
                                 </div>
