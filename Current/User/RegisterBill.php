@@ -156,13 +156,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         // Prepare an insert statement
-        $sql = "INSERT INTO current_details (user_id, name, user_address, user_area, user_account, category,user_premises) VALUES (?, ?, ?, ?, ?, ?<?)";
+        $sql = "INSERT INTO current_details (user_id, name, user_address, user_area, user_account, category,user_premises) VALUES (?, ?, ?, ?, ?, ?,?)";
 
         if ($stmt = $link->prepare($sql)) {
 
 
             // Bind variables to the prepared statement as parameters
-            if ($stmt->bind_param("isssss",$param_userid, $param_name, $param_address, $param_area, $param_acc, $param_category,$param_premis))
+            if ($stmt->bind_param("issssss",$param_userid, $param_name, $param_address, $param_area, $param_acc, $param_category,$param_premis))
 
                 // Set parameters
             $param_userid = $user_id;
