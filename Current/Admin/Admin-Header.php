@@ -65,6 +65,10 @@ if (!isset($_SESSION['loggedin_admin'])) {
                         <li class="nav-item">
                             <a class="nav-link" href="View-Admins.php">Admins</a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="charts.php">Data Analysis</a>
+                        </li>
                            
                     </ul>
 
