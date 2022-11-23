@@ -171,7 +171,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($stmt->bind_param("ssssss", $param_username, $param_gender, $param_nic, $param_email, $param_contact, $param_password))
 
                 // Set parameters
-                $param_username = $user_name;
+            $param_username = $user_name;
             $param_gender = $user_gender;
             $param_nic = $user_nic;
             $param_email = $user_email;
@@ -189,6 +189,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $mail->SMTPAuth = true;
                     $mail->Username = "13a4d424c492e1";
                     $mail->Password = "b0610fb36617fb";
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                     $mail->Port = 2525;
 
                     //Recipients
