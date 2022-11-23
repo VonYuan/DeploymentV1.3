@@ -60,7 +60,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $mail->Subject = "Online Current and Water Bill Management System -User Recover Password";
 
             $mail->Body    = "Dear $user_name , <br><br> Click the below link to reset the password<br>
-            <a href='http://localhost/Petrosv2/Current/User/Reset-Password.php?user_id=$user_id'>
+            <a href='https://testdeployv12.azurewebsites.net/Current/User/Reset-Password.php?user_id=$user_id'>
            <h4> Reset Password</h4></a>
             <br>If you didn't request this forgotten password email, no action is needed, your password will not be reset. However,
             you may want to change your password as someone may have guessed it.<br>  <br> Best Regards <br> Petros Team";
