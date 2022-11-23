@@ -16,7 +16,7 @@ require '../../vendor/autoload.php';
 $mail = new PHPMailer(true);
 
 function allUsers(){
-    $db = new mysqli('localhost', 'root', '', 'ocawbms');
+    $db = new mysqli('gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms');
     $all = mysqli_query($db, "SELECT * FROM users");
     $all_users = mysqli_num_rows($all);
     return $all_users;
