@@ -1,7 +1,7 @@
 <?php
     if(isset($_GET['user_id']))
     {
-        $db = mysqli_connect("localhost","root","","ocawbms");
+        $db = new mysqli('gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms');
         mysqli_query($db,"DELETE FROM users WHERE user_id = '".$_GET['user_id']."'");
         mysqli_query($db,"DELETE FROM current_details WHERE user_id = '".$_GET['user_id']."'");
         mysqli_query($db,"DELETE FROM current_bill WHERE user_id = '".$_GET['user_id']."'");
