@@ -240,6 +240,7 @@ $dataDetails = mysqli_fetch_array($records_details);
                                                                 <div class="form-group col-md-6">
                                                                     <label>Total Amount Due (Rm.)</label>
                                                                     <input type="text" class="form-control" value="<?php echo $totalpay ?>" disabled>
+                                                                    
                                                                 </div>
                                                             </div>
 
@@ -262,6 +263,7 @@ $dataDetails = mysqli_fetch_array($records_details);
                                                         <!--$billmonth=$data_bill['month']-->
                                                         <?php $billmonth = $data_bill['month'];?>
                                                         <form method="get" action="User_Pay.php">
+                                                            <input type="hidden" name="totalpay" value="<?php echo $totalpay; ?>">
                                                              <input type="hidden" name="billmonth" value="<?php echo $billmonth; ?>">
                                                              <input type="hidden" name="accountNum" value="<?php echo $data_bill['user_account']; ?>">
                                                             <input type="hidden" name="user_id" value="<?php echo $uid; ?>">

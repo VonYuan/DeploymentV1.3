@@ -7,8 +7,7 @@ session_start();
 //   header("location: Admin-Dashboard.php");
 //   exit;
 // }
-
-require_once "config.php";
+require_once '../../Config.php';
 
 // Define variables and initialize with empty values
 $admin_username = $admin_password = "";

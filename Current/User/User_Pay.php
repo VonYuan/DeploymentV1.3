@@ -22,6 +22,8 @@ $records_bill = mysqli_query($link, $sql_bill);
 $one_bill = mysqli_fetch_assoc($records_bill);
 echo $uid;
 
+$totalpay=$_GET['totalpay'];
+
 
 
 
@@ -591,7 +593,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                                 <div class="form-group col-md-6">
                                     <label>Total Amount Due (RM.)</label>
-                                    <input type="text" class="form-control" value="<?php echo $bill['total'] ?>"
+                                    <input type="text" class="form-control" value="<?php echo $totalpay?>"
                                         disabled>
                                 </div>
                             </div>
