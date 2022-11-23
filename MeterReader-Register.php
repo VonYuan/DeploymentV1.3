@@ -164,15 +164,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 try {
                     //Server settings
                     $mail->isSMTP();
-                    $mail->Host = 'smtp.gmail.com';
+                    $mail->Host = 'smtp.mailtrap.io';
                     $mail->SMTPAuth = true;
-                    $mail->Username = "finalprojectb2022@gmail.com";
-                    $mail->Password = "gagiebenoxdmigpm";
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-                    $mail->Port = 587;
+                    $mail->Username = "13a4d424c492e1";
+                    $mail->Password = "b0610fb36617fb";
+                    $mail->Port = 2525;
 
                     //Recipients
-                    $mail->setFrom("finalprojectb2022@gmail.com", "Test");
+                    $mail->setFrom("13a4d424c492e1@gmail.com", "Petros Billing System");
                     $mail->addAddress($reader_email);     // Add a recipient
 
                     // Content
