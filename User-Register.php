@@ -183,17 +183,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($stmt->execute()) {
 
                 try {
+                    $phpmailer = new PHPMailer();
+                    $phpmailer->isSMTP();
+                    $phpmailer->Host = 'smtp.mailtrap.io';
+                    $phpmailer->SMTPAuth = true;
+                    $phpmailer->Port = 2525;
+                    $phpmailer->Username = '13a4d424c492e1';
+                    $phpmailer->Password = 'b0610fb36617fb';
                     //Server settings
-                    $mail->isSMTP();
-                    $mail->Host = 'smtp.gmail.com';
-                    $mail->SMTPAuth = true;
-                    $mail->Username = "finalprojectb2022@gmail.com";
-                    $mail->Password = "gagiebenoxdmigpm";
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-                    $mail->Port = 587;
+                    $mail = new PHPMailer();
 
+                    
                     //Recipients
-                    $mail->setFrom("finalprojectb2022@gmail.com", "gagiebenoxdmigpm");
+                    $mail->setFrom("no-reply@section.io", "Petros");
                     $mail->addAddress($user_email);     // Add a recipient
 
                     // Content
@@ -206,7 +208,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                      NIC: $user_nic<br>
                      Email: $user_email<br>
                      Contact No: $user_contact<br>
-                     <br> Best Regards, <br> OEAWBMS Team";
+                     <br> Best Regards, <br> PETROS Team";
 
                     $mail->send();
                     //  echo $user->showwMessage('success','We have send you  reset link,please check your email');

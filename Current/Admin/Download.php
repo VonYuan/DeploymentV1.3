@@ -1,5 +1,5 @@
 <?php
-$con = mysqli_connect("localhost", "root", "", "ocawbms");
+    $con = new mysqli('gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms');
 
 if (isset($_GET['user_id'])) {
     
