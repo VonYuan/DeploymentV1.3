@@ -9,16 +9,7 @@ session_start();
 //   exit;
 // }
 
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'root');
-define('DB_PASSWORD', '');
-define('DB_NAME', 'ocawbms');
-
-$link = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
-
-if ($link === false) {
-    die("ERROR: Could not connect. " . mysqli_connect_error());
-}
+require_once "config.php";
 
 // Define variables and initialize with empty values
 $user_name = $user_password = "";
