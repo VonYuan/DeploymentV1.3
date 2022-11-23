@@ -24,7 +24,7 @@ echo $uid;
 
 $totalpay=$_GET['totalpay'];
 
-
+          
 
 
 
@@ -129,7 +129,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
             $updatecreditamount="UPDATE current_bill SET credit = '0' WHERE user_id = '$user_id' AND month = '$due_month' AND user_account= '$accountNum'";
            
-
+            $updatetotalpay="UPDATE current_bill SET  total='$totalpay' WHERE user_id = '$uid' AND month = '$due_month'";  
             
            
 
@@ -171,7 +171,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             }
            
-            
+            mysqli_query($link,$updatetotalpay);
             mysqli_query($link,$activity);
             mysqli_query($link,$updatetotal);
             mysqli_query($link,$updatcharge);

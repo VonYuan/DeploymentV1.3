@@ -325,8 +325,8 @@ $stat = $_SESSION['var'] = 1;
                                 </tr>
                             </thead>
                             <?php
-            $db = mysqli_connect("localhost","root","","ocawbms");
-            $records = mysqli_query($db,"SELECT user_id, gender, user_name FROM users");
+    $db = new mysqli('gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms');
+    $records = mysqli_query($db,"SELECT user_id, gender, user_name FROM users");
 
             while($data=mysqli_fetch_array($records)){
                 // $_SESSION['learners_name'] = $data['learners_name'];
