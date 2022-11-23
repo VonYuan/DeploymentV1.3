@@ -1,19 +1,17 @@
 <?php
 require_once '../../Config.php';
 
-if (!isset($_SESSION['loggedin_admin'])) {
-    header('Location: Admin-Login.php');
+if (!isset($_SESSION['loggedin_reader'])) {
+    header('Location: MeterReader-Login.php');
     exit;
   } else {
-    $admin_name = $_SESSION['admin_name'];
-    $sql = "SELECT * FROM admin WHERE admin_name='" . $admin_name . "'";
+    $reader_name = $_SESSION['reader_name'];
+    $sql = "SELECT * FROM meter_reader WHERE reader_name='" . $reader_name . "'";
     $records = mysqli_query($link, $sql);
     $data = mysqli_fetch_assoc($records);
-    $a_id = $data['admin_id'];
-    $_SESSION['admin_id'] = $a_id;
+    $a_id = $data['reader_id'];
+    $_SESSION['reader_id'] = $a_id;
   }
-
-  //$user_name = $_SESSION['user_uname'];
 
   $name_err = $username_err = $new_password_err = $email_err = $confirm_password_err = $confirm_password_err = $nic_err = $contact_err = "";
 
@@ -32,7 +30,7 @@ if (!isset($_SESSION['loggedin_admin'])) {
 
     <link href="../../font-awesome/css/font-awesome.css" rel="stylesheet">
 
-    <title>Admin Panel | <?= basename($_SERVER['PHP_SELF'], '.php') ?> </title>
+    <title>Reader Panel | <?= basename($_SERVER['PHP_SELF'], '.php') ?> </title>
 
 </head>
 
@@ -42,7 +40,7 @@ if (!isset($_SESSION['loggedin_admin'])) {
         <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">
-                    <h3>Petros Billing System</h3>
+                    <h3>Petross Billing System</h3>
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false"
@@ -51,21 +49,12 @@ if (!isset($_SESSION['loggedin_admin'])) {
                 </button>
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="Admin-Dashboard.php">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="View-Users.php">Users</a>
-                        </li>
                         
-                        <li class="nav-item">
-                            <a class="nav-link" href="Reminders.php">Reminders</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="View-Admins.php">Admins</a>
-                        </li>
-                           
+                        
+                        
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="Electricity-Tariffs.php">Electricity-Tariffs</a>
+                        </li> -->
                     </ul>
 
                     <div class="d-flex">
@@ -77,7 +66,7 @@ if (!isset($_SESSION['loggedin_admin'])) {
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header bg-dark" style="color: white;">
-                                                <h5 class="modal-title">Profile - <?php echo $_SESSION['admin_name'];?></h5>
+                                                <h5 class="modal-title">Profile - <?php echo $_SESSION['reader_name'];?></h5>
                                                 <button type="button" class="btn btn-dark" data-bs-dismiss="modal"
                                                     style="color: white;" aria-label="Close"><i class="fa fa-times"
                                                         aria-hidden="true"></i></button>
@@ -112,7 +101,7 @@ if (!isset($_SESSION['loggedin_admin'])) {
                                                                 <h6 class="mb-0">Full Name</h6>
                                                             </div>
                                                             <div class="col-sm-9 text-secondary">
-                                                                <?php echo $data['admin_fullname'] ?>
+                                                                <?php echo $data['reader_name'] ?>
                                             </div>
                                         </div>
                                         <hr>
@@ -130,7 +119,7 @@ if (!isset($_SESSION['loggedin_admin'])) {
                                                 <h6 class="mb-0">NIC Number</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <?php echo $data['admin_nic'] ?>
+                                                <?php echo $data['reader_nic'] ?>
                                             </div>
                                         </div>
                                         <hr>
@@ -139,7 +128,7 @@ if (!isset($_SESSION['loggedin_admin'])) {
                                                 <h6 class="mb-0">Email Address</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <?php echo $data['admin_email'] ?>
+                                                <?php echo $data['reader_email'] ?>
                                             </div>
                                         </div>
                                         <hr>
@@ -148,7 +137,7 @@ if (!isset($_SESSION['loggedin_admin'])) {
                                                 <h6 class="mb-0">Contact Number</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <?php echo $data['admin_contact'] ?>
+                                                <?php echo $data['reader_contact'] ?>
                                             </div>
                                         </div>
                                         <hr>
@@ -190,17 +179,12 @@ if (!isset($_SESSION['loggedin_admin'])) {
                 <div class="modal-body" style="text-align: left;">
                     <form action="Edit.php" method="POST" class="px-3 needs-validation">
 
-                        <div class="form-group">
-                            <label>Admin Fullname</label>
-                            <input type="text" class="form-control" name="admin_fullname"
-                                value="<?php echo $data['admin_fullname']; ?>">
-                            <span class="help-block"><?php echo $name_err; ?></span>
-                        </div><br>
+            
 
                         <div class="form-group">
-                            <label>Admin Username</label>
+                            <label>Meter Reader Username</label>
                             <input type="text" class="form-control" name="admin_username"
-                                value="<?php echo $data['admin_username']; ?>">
+                                value="<?php echo $data['reader_name']; ?>">
                             <span class="help-block"><?php echo $username_err; ?></span>
                         </div><br>
                         <div class="form-group">
@@ -215,21 +199,21 @@ if (!isset($_SESSION['loggedin_admin'])) {
                         <div class="form-group">
                             <label>NIC Number</label>
                             <input type="text" class="form-control" name="admin_nic"
-                                value="<?php echo $data['admin_nic'] ?>">
+                                value="<?php echo $data['reader_nic'] ?>">
                             <span class="help-block"><?php echo $nic_err; ?></span>
 
                         </div><br>
                         <div class="form-group">
                             <label>Email</label>
                             <input type="email" class="form-control" name="admin_email" placeholder="Enter Email"
-                                value="<?php echo $data['admin_email']; ?>">
+                                value="<?php echo $data['reader_email']; ?>">
                             <span class="help-block"><?php echo $email_err; ?></span>
                         </div><br>
 
                         <div class="form-group">
                             <label>Contact No</label>
                             <input type="text" class="form-control" name="admin_contact"
-                                placeholder="Enter a Contact Number" value="<?php echo $data['admin_contact']; ?>">
+                                placeholder="Enter a Contact Number" value="<?php echo $data['reader_contact']; ?>">
                             <span class="help-block"><?php echo $contact_err; ?></span>
                         </div><br>
 
@@ -279,7 +263,7 @@ if (!isset($_SESSION['loggedin_admin'])) {
 
     <!-- Open first dialog -->
     <a class="btn btn-danger" data-bs-toggle="modal" href="#modal" role="button">
-        <?php echo $_SESSION['admin_name'];?>
+        <?php echo $_SESSION['reader_name'];?>
         <?php
                     if($data['gender'] == "Male"){?>
         <img src="https://img.icons8.com/color/40/000000/administrator-male--v1.png" />
@@ -300,7 +284,7 @@ if (!isset($_SESSION['loggedin_admin'])) {
 
     </li>
     <li class="nav-item ">
-        <a class="nav-link " href="Admin-Logout.php">&nbsp;Logout&nbsp;<i class="fa fa-sign-out"
+        <a class="nav-link " href="MeterReader-Logout.php">&nbsp;Logout&nbsp;<i class="fa fa-sign-out"
                 aria-hidden="true"></i></a>
     </li>
     </ul>

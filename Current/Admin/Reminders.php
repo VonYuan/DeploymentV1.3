@@ -314,24 +314,14 @@ $stat = $_SESSION['var'] = 1;
         <div class="row gutters-sm">
             <div class=" col-md-12 mb-2">
                 <div class="border shadow-lg card p-2">
-                    <h4 class="text-center font-weight-bold">All Users(<?php echo allUsers()?>)</h4>
+                    <h4 class="text-center font-weight-bold">Reminders for All Users(<?php echo allUsers()?>)</h4>
                     <hr class="my-3" />
                     <div class="table-responsive-sm">
                         <table class="table table-striped table-hover" style="font-size: 14px;" id="myTable">
                             <thead style="font-weight: bold;font-size: 16px;">
                             <tr>
                                     <td style="text-align: center;">UserName</td>
-                                    <td style="text-align: center;">ID</td>
-                                    <td style="text-align: center;">View Bills</td>
-                                    <td style="text-align: center;">User Account</td>
-                                    <td style="text-align: center;">NIC Number</td>
-                                    <td style="text-align: center;">Gender</td>
-                                    <td style="text-align: center;">Email</td>
-                                    <td style="text-align: center;">Contact</td>
-                                    <td style="text-align: center;">Address</td>
-                                    <td style="text-align: center;">Area</td>
-                                    <td style="text-align: center;">Category</td>
-                                    <td style="text-align: center;">Delete</td>
+                                    <td style="text-align: center;">Send Reminders</td>
                                 </tr>
                             </thead>
                             <?php
@@ -363,7 +353,6 @@ $stat = $_SESSION['var'] = 1;
                                     &nbsp;<br><?php echo $data['user_name'];?>
                                 </td>
 
-                                <td style="text-align: center;">
                                     <?php
                                         $uid = $data['user_id'];
                                         $data_username = $data['user_name'];
@@ -371,111 +360,10 @@ $stat = $_SESSION['var'] = 1;
                                         $records_user = mysqli_query($db,"SELECT * FROM users WHERE user_id = '$uid'");
                                         $data_user=mysqli_fetch_array($records_user);
                                         $data_details=mysqli_fetch_array($records_details)
-                                        ?>
-                                        <div>
-                                            <?php
-                                                echo $data_user["user_id"]
-                                            ?>
-                                        </div>
-                                </td>   
-                                <td style="text-align: center;">
-                                    <form method="post" action="View.php">
-                                        <input type="hidden" name="accountNum" value="<?php echo $data_details['user_account']; ?>">
-                                        <input type="hidden" name="user_id" value="<?php echo $data_details['user_id']; ?>">
-                                        <button type="submit" >View</button>
-                                    </form> 
-                                </td>
-
-                                <td style="text-align: center;">
-                                    <?php
-                                        if (!empty($data_details["user_account"]))
-                                        {
-                                            echo $data_details["user_account"] ;
-                                        }else
-                                        {
-                                            echo "-";
-                                        }
                                     ?>
-                                </td>
 
-                                </td>
-
-                                <td style="text-align: center;">
-                                    <?php
-                                        echo $data_user["user_nic"] 
-                                    ?>
-                                </td>
-
-                                <td style="text-align: center;">
-                                    <?php
-                                        echo $data_user["gender"]
-                                    ?>
-                                </td>
-
-                                <td style="text-align: center;">
-                                    <?php
-                                        echo $data_user["user_email"]
-                                    ?>
-                                </td>
-
-                                <td style="text-align: center;">
-                                    <?php
-                                        echo $data_user["user_contact"]
-                                    ?>
-                                </td>
-
-                                <td style="text-align: center;">
-                                    <?php
-                                        if (!empty($data_details["user_address"]))
-                                        {
-                                            echo $data_details["user_address"] ;
-                                        }else
-                                        {
-                                            echo "-";
-                                        }
-                                       
-
-                                    ?>
-                                </td>
-
-                                <td style="text-align: center;">
-                                    <?php
-                                        if (!empty($data_details["user_area"]))
-                                        {
-                                            echo $data_details["user_area"] ;
-                                        }else
-                                        {
-                                            echo "-";
-                                        }
-                                    ?>
-                                </td>
-
-                                <!--<td style="text-align: center;">
-                                    <?php
-                                        //if (!empty($data_details["user_premises"]))
-                                        //{
-                                            //echo $data_details["user_premises"] ;
-                                        //}else
-                                        //{
-                                            //echo "-";
-                                        //}
-                                    ?>
-                                </td>-->
-
-                                <td style="text-align: center;">
-                                    <?php
-                                        if (!empty($data_details["category"]))
-                                        {
-                                            echo $data_details["category"] ;
-                                        }else
-                                        {
-                                            echo "-";
-                                        }
-                                    ?>
-                                </td>
-
-                                <td>
-                                    <input type = "button" onclick = "location = 'Delete.php?user_id=<?php echo $data_user['user_id']?>'" value ="Delete" >
+                                <td style="text-align: center;">      
+                                    <input type = "button" onclick = "location = 'SendReminders.php?user_id=<?php echo $data_user['user_id']?>'" value ="View" >
                                 </td>
                             </tr>
 

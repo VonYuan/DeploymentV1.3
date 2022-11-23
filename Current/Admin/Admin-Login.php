@@ -46,7 +46,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
         
-        $sql = "SELECT admin_id, admin_username, admin_password FROM admin WHERE admin_username = ?";
+        $sql = "SELECT admin_id, admin_name, admin_password FROM admin WHERE admin_name = ?";
         
         if($stmt = $link->prepare($sql)){
            

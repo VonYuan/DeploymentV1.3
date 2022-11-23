@@ -25,9 +25,6 @@ function allUsers(){
                     <tr>
                         <th style="text-align: center;">UserName</th>
                         <th>Month</th>
-                        <th>Meter Image</th>
-                        <th style="text-align: center;">Download Img</th>
-                        <th style="text-align: center;">Bill</th>
                         <th style="text-align: center;">Download Bill(PDF)</th>
                         <th style="text-align: center;">Bill Status</th>
                     </tr>
