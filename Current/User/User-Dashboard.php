@@ -104,16 +104,16 @@ $username_err = $password_err = $email_err = $confirm_password_err = $nic_err = 
             
             
             <i class='bx bx-registered'></i>
-            <h4>Register Gas Account</h4>
+            <h4>View & Register Gas Account</h4>
             <div class="col-lg p-3 text-center">
-             <a href="User-Register.php" class="btn btn-outline-primary btn-md" role="button">Register</a>
+             <a href="User-RegisterV2.php" class="btn btn-outline-primary btn-md" role="button">Register</a>
             </div>
         </div>
         <div class="col-lg-2 info">
             <i class='bx bxs-receipt'></i>
-            <h4>Payment For Bill</h4>
+            <h4>Add & View Owner Bill</h4>
             <div class="col-lg p-3 text-center">
-             <a href="ViewPay.php" class="btn btn-outline-primary btn-md" role="button">Pay</a>
+             <a href="Tenant.php" class="btn btn-outline-primary btn-md" role="button">View</a>
             </div>
         </div>
         <div class="col-lg-2 info">

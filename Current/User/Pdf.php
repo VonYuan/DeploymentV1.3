@@ -5,8 +5,18 @@ $uid = $_GET['user_id'];
 $month = $_GET['month'];
 $accountNum=$_GET['user_account'];
 
+$currentmonth=date_create($month);
+date_sub($currentmonth,date_interval_create_from_date_string("1 months"));
+$previous_month=date_format($currentmonth,"Y-m");
+ 
+$previous_result =  mysqli_query($link, "SELECT * FROM current_bill WHERE user_id = $uid AND month= '$previous_month' AND user_account= '$accountNum'");
+$previous_data_bill = mysqli_fetch_assoc($previous_result);
+
 $result =  mysqli_query($link, "SELECT * FROM current_bill WHERE user_id = $uid AND month= '$month' AND user_account= '$accountNum'");
 $data_bill = mysqli_fetch_assoc($result);
+
+$overduePayment= mysqli_query($link, "SELECT SUM(total) FROM current_bill WHERE user_id = $uid AND user_account= '$accountNum' AND status!='Paid'");
+$overdueamount = mysqli_fetch_array($overduePayment);
 
 $res =  mysqli_query($link, "SELECT * FROM current_details WHERE user_id = $uid AND user_account= '$accountNum'");
 $data = mysqli_fetch_assoc($res);
@@ -16,12 +26,47 @@ $acc = ': ' . $data['user_account'];
 $area = ': ' . $data['user_area'];
 $pre = ': ' . $data['user_premises'];
 $month = ': ' . $data_bill['month'];
-$meter = ': ' . $data_bill['meter'];
-$units = ': ' . $data_bill['units'];
-$charge = ': RM ' . $data_bill['charge'] ;
-$total = ': RM ' . $data_bill['total'] ;
+$meter = ': ' . $data_bill['meter'].' m3';
+$units = ': ' . $data_bill['units'].' m3';
+$charge = ': RM ' . round($data_bill['charge_current_Month'],0) ;
+#$totals = ': RM ' . $data_bill['total'] ;
+$overpaidAmount=': RM 0';
+$overdue=': RM '.$overdueamount[0];
+$overpaid = ': RM ' . $overpaidAmount;
 $due = ': ' . $data_bill['due'];
 $updated = ': ' . $data_bill['updated_at'];
+$amount=': RM ' . $data_bill['amount_pay'];
+
+$overpaidAmount=': RM ' . $data_bill['credit'];
+$needpay=$data_bill['charge_current_Month']+$overdueamount[0]-$data_bill['credit'];
+$amountneedtopay=': RM ' . round($needpay,0);
+
+if($previousMetercheck = empty($previous_data_bill['meter']))
+   {
+        $previousMeter=': ' . 0 . ' m3';
+   }
+      
+   else
+   {
+       $previousMeter=$previous_data_bill['meter'];
+   }
+   
+
+#$overduepayment=$total-$charge;
+
+if($data_bill['total']<0)
+{
+    $absolute_total=abs($data_bill['total']);
+    $overall_total=$absolute_total+$data_bill['total'];
+    $total=': RM ' .  $overall_total;
+
+    
+}else
+{
+    $total=': RM ' . $data_bill['total'] ;
+}
+
+
 
 $pdf = new FPDF('p', 'mm', 'A4');
 $pdf->AddPage();
@@ -58,16 +103,34 @@ $pdf->SetLeftMargin(20);
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(60, 8, 'Month', 0, 0, 'L');
 $pdf->Cell(40, 8, $month, 0, 1, 'L');
-$pdf->Cell(60, 8, 'Meter', 0, 0, 'L');
+
+$pdf->Cell(60, 8, 'Previous Month Meter', 0, 0, 'L');
+$pdf->Cell(40, 8, $previousMeter, 0, 1, 'L');
+
+$pdf->Cell(60, 8, 'Current Month Meter Reading', 0, 0, 'L');
 $pdf->Cell(40, 8, $meter, 0, 1, 'L');
+
 $pdf->Cell(60, 8, 'Units Consumed for the month', 0, 0, 'L');
 $pdf->Cell(40, 8, $units, 0, 1, 'L');
+
 $pdf->Cell(60, 8, 'Charge for the Month (RM)', 0, 0, 'L');
 $pdf->Cell(40, 8, $charge, 0, 1, 'L');
+
+$pdf->Cell(60, 8, 'Overdue Payment (RM)', 0, 0, 'L');
+$pdf->Cell(40, 8, $overdue, 0, 1, 'L');
+
 $pdf->Cell(60, 8, 'Total Amount Due (RM)', 0, 0, 'L');
 $pdf->Cell(40, 8, $total, 0, 1, 'L');
-$pdf->Cell(60, 8, 'Pay Before', 0, 0, 'L');
-$pdf->Cell(40, 8, $due, 0, 1, 'L');
+
+$pdf->Cell(60, 8, 'Credit Amount (RM)', 0, 0, 'L');
+$pdf->Cell(40, 8, $overpaidAmount, 0, 1, 'L');
+
+$pdf->Cell(60, 8, 'Amount Need To Pay (RM)', 0, 0, 'L');
+$pdf->Cell(40, 8, $amountneedtopay, 0, 1, 'L');
+
+$pdf->Cell(60, 8, 'Amount Pay You Pay', 0, 0, 'L');
+$pdf->Cell(40, 8, $amount, 0, 1, 'L');
+
 
 $pdf->ln(8);
 
@@ -78,6 +141,8 @@ $pdf->SetLeftMargin(20);
 $pdf->SetFont('Arial', '', 10);
 $pdf->Cell(40, 8, 'Date of Issue', 0, 0, 'L');
 $pdf->Cell(40, 8, $updated, 0, 1, 'L');
+$pdf->Cell(40, 8, 'Pay Before', 0, 0, 'L');
+$pdf->Cell(40, 8, $due, 0, 1, 'L');
 $pdf->SetY(260);
 $pdf->Cell(0, 10, 'Page ' . $pdf->PageNo(), 0, 0, 'C');
 $pdf->Output();

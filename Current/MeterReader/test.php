@@ -179,6 +179,10 @@ if(!empty($previousmonthbill['meter']))
                                                         action="Bill-Update.php?user_id=<?php echo $data['user_id']?>">
                                                         <input type="text" name="user_email" class="form-control"
                                                             value="<?php echo $data['user_email'] ?>" hidden>
+                                                        
+                                                        <input type="text" name="accountNum" class="form-control"
+                                                            value="<?php echo $accountNum ?>" hidden>
+                                                        
                                                         <div class="form-row">  
                                                             <!--<diV class="form-group col-md-2"><img
                                                                     src="../../images/ceb_bill.png"></diV>-->

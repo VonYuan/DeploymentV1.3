@@ -8,6 +8,8 @@ $records_month = mysqli_query($link, $sql_month);
 $data_month = mysqli_fetch_assoc($records_month);
 $due_month = $data_month['month'];
 
+
+
 $sql_record = "SELECT * FROM image_upload WHERE user_id='" . $uid . "' AND month = '$due_month' AND status != 'Rejected'";
 $recordsDetails = mysqli_query($link, $sql_record);
 
@@ -28,30 +30,13 @@ $dataDetails = mysqli_fetch_array($records_details);
         <div class="row gutters-sm">
             <div class="col-md-12" ><br>
                 <div class="card border shadow-lg mb-3 p-2">
-                    <h2 class="align-items-center text-center">Account </h2>
+                    <h2 class="align-items-center text-center">Billing Account</h2>
                     
                     <div class="col-md-4">
-                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#register">Add&nbsp;<i class="fa fa-plus" aria-hidden="true"></i></button>
-                         <a href="RegisterBill.php" class="btn btn-primary" role="button">Add&nbsp;<i class="fa fa-plus" aria-hidden="true"></i></a>
+                         <a href="RegisterBill.php" class="btn btn-primary" role="button">Register&nbsp;<i class="fa fa-plus" aria-hidden="true"></i></a>
                     </div>
                     
-                    <div class="modal fade" id="register" tabindex="-1" aria-labelledby="photo Label" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg modal-dialog-centered">
-                                                <div class="modal-content">
-                                                    <div class="modal-header bg-danger">
-                                                        <h4 class="modal-title" id="photo Label" style="color: white;">
-                                                            Register Gas Bill</h4>
-                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
-                                                            <i class="fa fa-times" aria-hidden="true"></i></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="px-3 needs-validation">
-                                                            <div class="form-row">
-                                                                <!--<div class="form-group col-md-2"><img src="../../images/ceb_bill.png"></div>-->
-                                                                <div class="form-group col-md-12 p-2">
-                                                                    <h5 style="text-align: center;">Registration for Gas Billing System</h5>
-                                                                </div>
-                                                            </div>
+
 
 <?php
 
@@ -101,8 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sql = "INSERT INTO test_details (user_id, name, user_address, user_area, user_premises, user_account) VALUES (?, ?, ?, ?, ?, ?)";
 
         if ($stmt = $link->prepare($sql)) {
-
-
             // Bind variables to the prepared statement as parameters
             if ($stmt->bind_param("isssss",$param_userid, $param_name, $param_address, $param_area, $param_premises, $param_acc))
 
@@ -136,70 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $link->close();
 }
 ?>                                                            
-                                                            
 
-                                                            
-                                                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" class="px-3 needs-validation"
-                                                                id="user_add">
-                                                                
-                                                             <p style="font-size: 14px;">*Please fill this form to register for the Gas bill management system. All the information is related to manual bill</p>
-                                                                
-                                                                
-                                                            <div class="form-group">
-                                                            <label>Name</label>
-                                                            <input type="text" class="form-control" name="name" required
-                                                                placeholder="Enter the Name">
-                                                            </div>
-                                                                
-                                                            <div class="form-group">
-                                                                    <label>Address</label>
-                                                                    <input type="text" class="form-control" name="user_address" placeholder="Enter the Address" required>
-                                                            </div>
-                                                                
-                                                                
-                                                            <div class="form-group">
-                                                                   <label>Area Office</label>
-                                                                    <input type="text" class="form-control" name="user_area" placeholder="Enter the Area Office" required>
-                                                            </div>
-                                                                
-                                                                
-                                                            <div class="form-row">    
-                                                                    <div class="form-group col-md-6">
-                                                                       <label>Premises ID</label>
-                                                                        <input type="text" class="form-control" name="user_premises" placeholder="Enter the Premises ID" required>
-                                                                    </div>
-                                                                
-                                                                <div class="form-group col-md-6">
-                                                                       <label>Gas Account Number</label>
-                                                                        <input type="text" class="form-control" name="user_account" placeholder="Enter the Account Number" required>
-                                                                </div>
-                                                                
-                                                                    
-                                                            </div>
-                                                                
-                                                                
-                                                            <div class="form-group">
-                                                                <button class="btn btn-danger btn-lg btn-block myBtn" type="submit " name="submit">Submit</button>
-                                                            </div><br>
-                                                        </form>
-
-
-
-
-
-
-
-
-  
-
-                                                        </div>
-                                                    </div>
-
-
-
-                                                </div>
-                                            </div>
-                                        </div>
                     
                     <div class="card-body">
                         <div class="table-responsive-sm">
@@ -210,9 +130,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <th style="text-align: center;">Account Number</th>
                                         <th style="text-align: center;">Address</th>
                                         <th style="text-align: center;">Area</th>
-                                        <th style="text-align: center;">Premises</th>
                                         <th style="text-align: center;">Status</th>
-                                        <th style="text-align: center;">Action</th>
+                                        <th style="text-align: center;">View Bill</th>
+                                        
                                         
                                     </tr>
                                 </thead>
@@ -229,10 +149,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <td>
                                             <?php
                                             echo $accountdetail['name'];
-                                             ?>
-                                            
+                                             ?> 
                                         </td>
-                                        
+
 
                                         <td style="text-align: center;">
                                             <?php
@@ -252,11 +171,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                              ?>
                                         </td>
                                         
-                                        <td style="text-align: center;">
-                                            <?php
-                                            echo $accountdetail['user_premises'];
-                                             ?>
-                                        </td>
+     
                                         
                                         <td style="text-align: center;">
                                             <?php
@@ -267,6 +182,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <td style="text-align: center;">
                                             <form method="post" action="ViewPay.php">
                                                   <input type="hidden" name="accountNum" value="<?php echo $accountdetail['user_account']; ?>">
+                                                <input type="hidden" name="user_id" value="<?php echo $accountdetail['user_id']; ?>">
                                                  <button type="submit" >View Bill</button>
                                             </form> 
                                         </td>

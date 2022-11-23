@@ -24,6 +24,7 @@ $bill_month = $data_month['month'];
 
 $user_id = $_GET['user_id'];
 $user_email = $_POST['user_email'];
+$accountNum = $_POST['accountNum'];
 $meter = $units = $charge = $total = $month = "";
 $meter_err = $units_err = $charge_err = $total_err = "";
 
@@ -69,18 +70,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
      
     $units=$meter-$prevmeter;
     $charge=(((1.1756*36.24975830/1000)*$units*7.93));
+    $charges=round($charge,0);
     
-    $sql_totalamount="SELECT SUM(charge) FROM current_bill WHERE user_id= '9' AND status='Not Paid'";
-
-
+    $sql_totalamount="SELECT SUM(charge) FROM current_bill WHERE user_id= '$user_id' AND user_account=$accountNum";
     $records_totalamount = mysqli_query($link, $sql_totalamount);
     $total = mysqli_fetch_array($records_totalamount);
- 
-    
+    $total=$total[0]+$charges;
+
     
     
 
-    $sql = "INSERT INTO current_bill (user_id, user_account, month, meter, units, charge, total, due) VALUES ('$user_id', '$accountNum', '$month', '$meter', '$units', '$charge', '$total[0]', '$due')";
+    $sql = "INSERT INTO current_bill (user_id, user_account, month, meter, units, charge,charge_current_Month,total,overall_payment, amount_pay,due) VALUES ('$user_id', '$accountNum', '$month', '$meter', '$units', '$charges','$charges', '$total','$total', '0','$due')";
     
 
     

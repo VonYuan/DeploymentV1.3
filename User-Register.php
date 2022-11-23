@@ -94,21 +94,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         }
     }
+    
 
     if (!preg_match("/^[0-9'V'v]*$/", strlen($_POST["user_nic"]))) {
         $nic_err = "Only Numbers and V or v allowed for old version and Only Numbers are allowed for new version";
-    } else if (strlen($_POST["user_nic"]) != 10 && strlen($_POST["user_nic"]) != 12) {
-        $nic_err = "NIC number is Invalid";
+    } else if (strlen($_POST["user_nic"]) != 12) {
+        $nic_err = "NIC number Must have 12 numbers";
     } else {
         $user_nic = $_POST['user_nic'];
     }
+    
+    $uic=$_POST['user_nic'];
+    $checkicquery="SELECT * FROM  users WHERE user_nic = '$uic'";
+    $checkicResult=mysqli_query($link, $checkicquery);
+    $checknumic=mysqli_num_rows( $checkicResult );
+    if($checknumic>0)
+    {
+        $nic_err="NIC already been used";
+    }
+    
+    
+    $ucontact=$_POST['user_contact'];
+    $checkucontact="SELECT * FROM  users WHERE user_contact = '$ucontact'";
+    $checkucontactResult=mysqli_query($link, $checkucontact);
+    $checkucontactNum=mysqli_num_rows( $checkucontactResult );
+    if($checkucontactNum>0)
+    {
+        $contact_err="This Conatact Number Had been used";
+    }
+    
 
     if (empty(trim($_POST["user_contact"]))) {
         $contact_err = "Please enter a Contact Number.";
     } elseif (!preg_match("/^[0-9]*$/", strlen($_POST["user_contact"]))) {
         $contact_err = "Invalid Contact Number.";
     }elseif (strlen(trim($_POST["user_contact"])) != 10) {
-        $contact_err = "Invalid Contact Number.";
+        $contact_err = " Contact Number Must have 10 Number.";
     } else {
         $user_contact = trim($_POST["user_contact"]);
         $send_contact = $user_contact;
@@ -416,7 +437,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" class="form-control" name="user_email" placeholder="Enter Email" value="<?php echo $user_email; ?>" required>
+                                    <input type="text" class="form-control" name="user_email" placeholder="Enter Email" value="<?php echo $user_email; ?>" required>
                                     <span class="help-block"><?php echo $email_err; ?></span>
                                 </div><br>
 

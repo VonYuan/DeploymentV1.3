@@ -61,10 +61,10 @@ $uid = $data['user_id'];
                             <a class="nav-link" aria-current="page" href="User-Dashboard.php">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="User-RegisterV2.php">Register</a>
+                            <a class="nav-link" href="User-RegisterV2.php">View & Register</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="ViewPay.php">View and Pay</a>
+                            <a class="nav-link" href="Tenant.php">Add & View Owner</a>
                         </li>
                         <!--<li class="nav-item">
                             <a class="nav-link" href="User-Pay.php">Payments</a>

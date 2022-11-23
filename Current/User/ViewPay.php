@@ -1,6 +1,7 @@
 <?php
 require_once 'User-Header.php';
-$uid = $_SESSION['user_id'];
+$uid =$_POST['user_id'];
+#$uid = $_SESSION['user_id'];
 $uname = $_SESSION['user_uname'];
 
 $sql_month = "SELECT * FROM bill_month";
@@ -104,22 +105,134 @@ $dataDetails = mysqli_fetch_array($records_details);
 
                                                             <div class="form-row">
                                                                 <div class="form-group col-md-6">
-                                                                    <label>Meter Reading</label>
+                                                                    <label>This month Meter Reading</label>
                                                                     <input type="text" class="form-control" value="<?php echo $data_bill['meter'] ?>" disabled>
                                                                 </div>
+                                                                
 
+                                                                
+                                                                
                                                                 <div class="form-group col-md-6">
                                                                     <label>Units Consumed for Month
                                                                         <?php echo $data_bill['month'] ?></label>
                                                                     <input type="text" class="form-control" value="<?php echo $data_bill['units'] ?>" disabled>
                                                                 </div>
                                                             </div>
+                                                            
+                                                            <div class="form-row">
+                                                                <?php
+                                                                $currentmonth=date_create($data_bill['month']);
+                                                                date_sub($currentmonth,date_interval_create_from_date_string("1 months"));
+                                                                $previous_month=date_format($currentmonth,"Y-m");
+                                                                
+                                                                $sql_previous = "SELECT * FROM current_bill WHERE user_id='" . $uid . "' AND month = '$previous_month' AND user_account = '$accountNum'";
+                                                                $records_previousbill = mysqli_query($link, $sql_previous);   
+                                                                $previousmonthbill = mysqli_fetch_assoc($records_previousbill);
+                                    
+                                                                if(!empty($previousmonthbill['meter']))
+                                                                {
+                                                                    $previousmeter=$previousmonthbill['meter'];
+                                                                    
+                                                                }else
+                                                                {
+                                                                    $previousmeter=0;
+                                                                    
+                                                                }
+                                                                if(empty($previousmonthbill['status']))
+                                                                {
+                                                                    $lastmonth_charge=0;
+                                                                }else
+                                                                {
+                                                                    if($previousmonthbill['status']=="Paid" || $previousmonthbill['status']=="Over Paid")
+                                                                    {
+                                                                        $lastmonth_charge=0;
+                                                                    }else
+                                                                    {
+                                                                        $lastmonth_charge=$previousmonthbill['charge'];
+                                                                    }  
+                                                                }
+                                    
+                                                                $currentMonth=$data_bill['month'];
+                                                                $sql_overdue = "SELECT SUM(total) FROM current_bill WHERE user_id='$uid' AND user_account = '$accountNum' AND status!='Paid' AND status!='Over Paid' AND month!='$currentMonth'";
+                                                                $records_overdue = mysqli_query($link, $sql_overdue); 
+                                                                $overdue=mysqli_fetch_array($records_overdue);
+                                                                if(empty($overdue))
+                                                                {
+                                                                    $overdueAmount=0;
+                                                                }else
+                                                                {
+                                                                    $overdueAmount=$overdue[0];
+                                                                }
+                                    
+                                                                
+                                    
+                                                                
+                                    
+                                    
+                                                                $sql_Credit = "SELECT * FROM current_bill WHERE user_id='" . $uid . "' AND user_account = '$accountNum'AND status = 'Over Paid'";
+                                                                $records_Credit = mysqli_query($link, $sql_Credit);   
+                                                                $Credit = mysqli_fetch_assoc($records_Credit);
+                                                                
+                                    
+                                                                if(empty($Credit))
+                                                                {
+                                                                    $CreditAmount=0;
+                                                                }else
+                                                                {
+                                                                    $CreditAmount=abs($Credit['total']);
+                                                                }
+                                    
+                                                                
+                                                                if (empty($previousmonthbill['status']))
+                                                                {
+                                                                    $overpaid_amount=0;
+                                                                    $previouscharge=0;
+                                                                    
+                                                                }else
+                                                                {
+                                                                    
+                                                                    if($previousmonthbill['status']=="Over Paid" )
+                                                                    {
+                                                                        $overpaid_amount= abs($previousmonthbill['total']);
+
+                                                                    }else
+                                                                    {
+                                                                        $overpaid_amount=0;
+                                                                    }
+                                                                    
+                                                                    $previouscharge=$previousmonthbill['charge_current_Month'];
+                                                                    
+                                                                }
+                                                                
+
+                                                                ?>
+                                                            <div class="form-group col-md-6">
+                                                              <label>Last Month Meter Reading</label>
+                                                                 <input type="text" class="form-control" value="<?php echo $previousmeter?>" disabled>
+                                                             </div>                                 
+                                                             <div class="form-group col-md-6">
+                                                                 <label>Charge Consumed for 
+                                                                     Last Month (RM)</label>
+                                                                 <input type="text" class="form-control" value="<?php echo $previouscharge?>" disabled>
+                                                             </div>
+                                                                
+                                                            <div class="form-group col-md-6">
+                                                                 <label>Credit Balance(RM)</label>
+                                                                 <input type="text" class="form-control" value="<?php echo $CreditAmount?>" disabled>
+                                                             </div>
+                                                            
+                                                            <div class="form-group col-md-6">
+                                                                 <label>Over Due Payment(RM)</label>
+                                                                 <input type="text" class="form-control" value="<?php echo $overdueAmount?>" disabled>
+                                                             </div>
+                                                                
+                                                            </div>
 
                                                             <div class="form-row">
                                                                 <div class="form-group col-md-6">
                                                                     <label>Charge For the
                                                                         Month(RM.)</label>
-                                                                    <input type="text" class="form-control" value="<?php echo $data_bill['charge'] ?>" disabled>
+                                                                    <input type="text" class="form-control" value="<?php echo $data_bill['charge_current_Month'] ?>" disabled>
                                                                 </div>
 
                                                                 <div class="form-group col-md-6">
@@ -146,9 +259,10 @@ $dataDetails = mysqli_fetch_array($records_details);
                                                     <div class="modal-footer">
                                                         <!--$billmonth=$data_bill['month']-->
                                                         <?php $billmonth = $data_bill['month'];?>
-                                                        <form method="get" action="User-Pay.php">
+                                                        <form method="get" action="User_Pay.php">
                                                              <input type="hidden" name="billmonth" value="<?php echo $billmonth; ?>">
                                                              <input type="hidden" name="accountNum" value="<?php echo $data_bill['user_account']; ?>">
+                                                            <input type="hidden" name="user_id" value="<?php echo $uid; ?>">
                                                             <button type="submit">Pay</button>
                                                         </form> 
                                                         <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
@@ -158,7 +272,24 @@ $dataDetails = mysqli_fetch_array($records_details);
                                                 </div>
                                             </div>
                                         </div>
-                                        <td style="text-align: center;"><a href="Pdf.php?user_id=<?php echo $uid; ?>&month=<?php echo $data_bill['month']; ?>&user_account=<?php echo $accountNum; ?>"><i class="fa fa-download" aria-hidden="true"></i></a></td>
+
+                                        <td style="text-align: center;" disable >
+                                            <?php 
+                                                if($data_bill['status']=="Over Paid" OR $data_bill['status']=="Paid" )
+                                                {
+                                                    
+                                                
+                                                
+                                            
+                                            ?>
+                                            <a href="Pdf.php?user_id=<?php echo $uid; ?>&month=<?php echo $data_bill['month']; ?>&user_account=<?php echo $accountNum; ?>" disable>
+                                            <i class="fa fa-download" aria-hidden="true"></i></a>
+                                            
+                                            <?php 
+                                                }
+                                            
+                                            ?>
+                                        </td>
 
                                         <td style="text-align: center;">
                                             <?php
@@ -170,7 +301,15 @@ $dataDetails = mysqli_fetch_array($records_details);
                                             ?>
                                                 <div class="btn btn-success" style="color: white;">Paid</div>
                                             <?php
-                                            }
+                                            } else if ($data_bill['status'] == 'Over Paid') {
+                                            ?>
+                                                <div class="btn btn-primary" style="color: white;">Over Paid</div>
+                                            <?php
+                                            } else if ($data_bill['status'] == 'Partly Paid') {
+                                            ?>
+                                                <div class="btn btn-secondary" style="color: white;">Partly Paid</div>
+                                            <?php
+                                            } 
                                             ?>
                                         </td>
                                                 
