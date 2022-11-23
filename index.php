@@ -1,6 +1,6 @@
 <?php
 
-require_once '../Config.php';
+require_once 'Config.php';
   $Current = mysqli_query($link, "SELECT COUNT(admin_id) FROM admin ");
   //$Current = mysqli_query($link, "SELECT COUNT(admin_id) FROM admin WHERE type = 'Electricity'");
   $Current_admins = mysqli_fetch_assoc($Current);
