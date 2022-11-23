@@ -156,22 +156,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         // Prepare an insert statement
-        $sqlinsertion = "INSERT INTO current_details (user_id, name, user_address, user_area, user_account, category) VALUES ($user_id, $name,$user_address, $user_area, $user_account,$user_category)";
-        mysqli_query($link,$sqlinsertion);
-        echo "<script> location.href='User-Dashboard.php'; </script>";
+        $sql = "INSERT INTO current_details (user_id, name, user_address, user_area, user_account, category,user_premises) VALUES (?, ?, ?, ?, ?, ?<?)";
 
-        /*if ($stmt = $link->prepare($sql)) {
+        if ($stmt = $link->prepare($sql)) {
 
 
             // Bind variables to the prepared statement as parameters
-            if ($stmt->bind_param("isssss",$param_userid, $param_name, $param_address, $param_area, $param_acc, $param_category))
+            if ($stmt->bind_param("isssss",$param_userid, $param_name, $param_address, $param_area, $param_acc, $param_category,$param_premis))
 
                 // Set parameters
             $param_userid = $user_id;
             $param_name = $name;
             $param_address = $user_address;
             $param_area = $user_area;
-           
+            $param_premis = 0;
             $param_acc = $user_account; // Creates a password hash
             $param_category=$user_category;
 
@@ -186,12 +184,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 #exit();
             } else {
 
-                echo "Testing Wrong.";
+                echo "Something went wrong when executing. Please try again later.";
             }
 
             // Close statement
             $stmt->close();
-        }*/
+        }
     }
 
     // Close connection
