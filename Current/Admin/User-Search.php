@@ -16,6 +16,7 @@ require_once 'Admin-Header.php';
             </form>
         </div><br>
         <?php
+            
             $db = mysqli_connect("localhost","root","","ocawbms");
             if(isset($_POST['name'])){
                 $uname = $_POST['name'];
