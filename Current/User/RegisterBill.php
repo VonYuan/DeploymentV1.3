@@ -1,6 +1,8 @@
 <?php
 include_once 'User-Header.php';
 require_once '../../Config.php';
+
+
 $user_id = $_SESSION['uid'];
 $uname = $_SESSION['user_uname'];
 $sql_record = "SELECT * FROM current_details WHERE user_id='" . $user_id . "'";
@@ -182,7 +184,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 #exit();
             } else {
 
-                echo "Something went wrong when executing. Please try again later.";
+                echo "Testing Wrong.";
             }
 
             // Close statement
@@ -234,7 +236,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                             <div class="form-row">
                                                                 <div class="form-group col-md-6">
                                                                 <label>Area</label>
-                                                                <select class="form-select" aria-label="Default select example" name='user_area'>
+                                                                <select class="form-select"  name='user_area'>
                                                                   <option selected value="">Select Area</option>
                                                                   <option value="APT">Airport Road</option>
                                                                   <option value="BBP">Bandar Baru permy Jaya</option>

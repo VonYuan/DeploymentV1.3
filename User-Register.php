@@ -189,7 +189,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $mail->SMTPAuth = true;
                     $mail->Username = "13a4d424c492e1";
                     $mail->Password = "b0610fb36617fb";
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                    $mail->SMTPSecure = false;
                     $mail->Port = 2525;
 
                     //Recipients
