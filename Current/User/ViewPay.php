@@ -30,7 +30,6 @@ $dataDetails = mysqli_fetch_array($records_details);
             <div class="col-md-12" ><br>
                 <div class="card border shadow-lg mb-3 p-2">
                     <h2 class="align-items-center text-center">Previous Images & Bills</h2>
-                    <?php echo $accountNum ?>
                     <div class="card-body">
                         <div class="table-responsive-sm">
                             <table class="table table-striped table-hover" style="font-size: 14px;" id="newTable">
