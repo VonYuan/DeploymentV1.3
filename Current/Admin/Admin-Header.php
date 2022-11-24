@@ -55,7 +55,7 @@ if (!isset($_SESSION['loggedin_admin'])) {
                             <a class="nav-link" aria-current="page" href="Admin-Dashboard.php">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="View-Users.php">Users</a>
+                            <a class="nav-link" aria-current="page" href="View-Users.php">Billing Accounts</a>
                         </li>
                         
                         <li class="nav-item">
@@ -67,7 +67,7 @@ if (!isset($_SESSION['loggedin_admin'])) {
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="chart.php">Data Analysis</a>
+                            <a class="nav-link" href="charts.php">Data Analytic</a>
                         </li>
                            
                     </ul>
@@ -113,10 +113,10 @@ if (!isset($_SESSION['loggedin_admin'])) {
                                                     <div class="card-body">
                                                         <div class="row">
                                                             <div class="col-sm-3">
-                                                                <h6 class="mb-0">Full Name</h6>
+                                                                <h6 class="mb-0">Name</h6>
                                                             </div>
                                                             <div class="col-sm-9 text-secondary">
-                                                                <?php echo $data['admin_fullname'] ?>
+                                                                <?php echo $data['admin_name'] ?>
                                             </div>
                                         </div>
                                         <hr>
@@ -195,18 +195,12 @@ if (!isset($_SESSION['loggedin_admin'])) {
                     <form action="Edit.php" method="POST" class="px-3 needs-validation">
 
                         <div class="form-group">
-                            <label>Admin Fullname</label>
-                            <input type="text" class="form-control" name="admin_fullname"
-                                value="<?php echo $data['admin_fullname']; ?>">
+                            <label>Admin Name</label>
+                            <input type="text" class="form-control" name="admin_name"
+                                value="<?php echo $data['admin_name']; ?>">
                             <span class="help-block"><?php echo $name_err; ?></span>
                         </div><br>
 
-                        <div class="form-group">
-                            <label>Admin Username</label>
-                            <input type="text" class="form-control" name="admin_username"
-                                value="<?php echo $data['admin_username']; ?>">
-                            <span class="help-block"><?php echo $username_err; ?></span>
-                        </div><br>
                         <div class="form-group">
                             <label>Gender</label>
                             <select id="gender" name="gender" class="form-control">
