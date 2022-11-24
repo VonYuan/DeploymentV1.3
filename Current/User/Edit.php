@@ -4,11 +4,6 @@ require '../../Config.php';
 
 $name_err = $username_err = $password_err = $email_err = $confirm_password_err = $nic_err = $contact_err = "";
 
-$username_err=$user_nic=$email_err=$contact_err="";
-
-
-
-
 if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     
@@ -107,27 +102,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(isset($_POST['gender']))
     $gender = $_POST['gender'];
 
-    if (empty($username_err) && empty($user_nic) && empty($email_err) && empty($contact_err))
-    {
-        $update = "UPDATE users SET user_name = '$user_name', user_nic = '$user_nic', 
-        user_contact = '$user_contact', user_email = '$user_email', gender = '$gender' WHERE user_id = '$user_id'";
+    $update = "UPDATE users SET user_name = '$user_name', user_nic = '$user_nic', 
+    user_contact = '$user_contact', user_email = '$user_email', gender = '$gender' WHERE user_id = '$user_id'";
 
-        $message = "Profile updated";
-        $activity = "INSERT INTO activity_log (user_id, message) VALUES ('$user_id', '$message')";
-        if(mysqli_query($link,$update)){
-            mysqli_query($link,$activity);
-            header("Location:User-Dashboard.php");
-        }
-
-        else{
-            mysqli_error($link);
-        }
-        
-    }else
-    {
-        header("Location:Profile.php");
+    $message = "Profile updated";
+    $activity = "INSERT INTO activity_log (user_id, message) VALUES ('$user_id', '$message')";
+    if(mysqli_query($link,$update)){
+        mysqli_query($link,$activity);
+        header("Location:User-Dashboard.php");
     }
 
+    else{
+        mysqli_error($link);
+    }
 }
 
 ?>
