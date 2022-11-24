@@ -1,11 +1,12 @@
+
 <?php
-    if(isset($_GET['user_id']))
+
+    if(isset($_GET['user_account']))
     {
         $db = new mysqli('gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms');
-        mysqli_query($db,"DELETE FROM users WHERE user_id = '".$_GET['user_id']."'");
-        mysqli_query($db,"DELETE FROM current_details WHERE user_id = '".$_GET['user_id']."'");
-        mysqli_query($db,"DELETE FROM current_bill WHERE user_id = '".$_GET['user_id']."'");
-        mysqli_query($db,"DELETE FROM current_pay WHERE user_id = '".$_GET['user_id']."'");
+        mysqli_query($db,"DELETE FROM current_details WHERE user_account = '".$_GET['user_account']."'");
+        mysqli_query($db,"DELETE FROM current_bill WHERE user_account = '".$_GET['user_account']."'");
+        //mysqli_query($db,"DELETE FROM current_pay WHERE user_id = '".$_GET['user_id']."'");
         header("location:View-Users.php");
         exit();
     }
