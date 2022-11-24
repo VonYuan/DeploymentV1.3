@@ -192,8 +192,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $phpmailer->Password = 'b0610fb36617fb';
                     //Server settings
                     $mail = new PHPMailer();
-
-                    
                     //Recipients
                     $mail->setFrom("no-reply@section.io", "Petros");
                     $mail->addAddress($user_email);     // Add a recipient
