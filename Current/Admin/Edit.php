@@ -13,51 +13,25 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $records = mysqli_query($link, $sql);
     $data = mysqli_fetch_assoc($records);
 
-    $admin_username = $data['admin_username'];
-    $admin_fullname = $data['admin_fullname'];
+    $admin_name = $data['admin_name'];
     $admin_nic = $data['admin_nic'];
     $admin_contact = $data['contact'];
     $admin_email = $data['admin_email'];
     $gender = $data['gender'];
 
-    
-    if ($stmt = $link->prepare($sql)) {
-        // Bind variables to the prepared statement as parameters
-        $stmt->bind_param("s", $param_name);
 
-        // Set parameters
-        $param_name = trim($_POST["admin_fullname"]);
-
-        // Attempt to execute the prepared statement
-        if ($stmt->execute()) {
-            /* store result */
-            $stmt->store_result();
-
-            if ($stmt->num_rows() >= 1) {
-                $name_err = "This admin already has an account!";
-            } else {
-                $admin_fullname = trim($_POST["admin_fullname"]);
-            }
-        } else {
-            echo "Oops! Something went wrong when inserting name. Please try again later.";
-        }
-
-        // Close statement
-        $stmt->close();
-    }
-
-    if (empty(trim($_POST["admin_username"]))) {
+    if (empty(trim($_POST["admin_name"]))) {
         $username_err = "Please enter a username.";
     } else {
         // Prepare a select statement
-        $sql = "SELECT admin_id FROM admin WHERE admin_username = ?";
+        $sql = "SELECT admin_id FROM admin WHERE admin_name = ?";
 
         if ($stmt = $link->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
             $stmt->bind_param("s", $param_username);
 
             // Set parameters
-            $param_username = trim($_POST["admin_username"]);
+            $param_username = trim($_POST["admin_name"]);
 
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
@@ -67,7 +41,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 if ($stmt->num_rows() >= 1) {
                     $username_err = "This username is already taken.";
                 } else {
-                    $admin_username = trim($_POST["admin_username"]);
+                    $admin_name = trim($_POST["admin_name"]);
                 }
             } else {
                 echo "Oops! Something went wrong when inserting username. Please try again later.";
@@ -133,7 +107,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(isset($_POST['gender']))
     $gender = $_POST['gender'];
 
-    $update = "UPDATE admin SET admin_username = '$admin_username', admin_fullname = '$admin_fullname', admin_nic = '$admin_nic', 
+    $update = "UPDATE admin SET admin_name = '$admin_name', admin_nic = '$admin_nic', 
     admin_contact = '$admin_contact', admin_email = '$admin_email', gender = '$gender' WHERE admin_id = '$admin_id'";
 
     if(mysqli_query($link,$update)){
