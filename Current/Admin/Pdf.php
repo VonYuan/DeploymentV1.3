@@ -1,24 +1,25 @@
 <?php
 require '../../Config.php';
 require '../../fpdf/fpdf.php';
-$uid = $_GET['user_id'];
+//  $uid = $_GET['user_id'];
 $month = $_GET['month'];
 $accountNum=$_GET['user_account'];
 
 $currentmonth=date_create($month);
 date_sub($currentmonth,date_interval_create_from_date_string("1 months"));
 $previous_month=date_format($currentmonth,"Y-m");
- 
-$previous_result =  mysqli_query($link, "SELECT * FROM current_bill WHERE user_id = $uid AND month= '$previous_month' AND user_account= '$accountNum'");
+
+
+$previous_result =  mysqli_query($link, "SELECT * FROM current_bill WHERE month= '$previous_month' AND user_account= '$accountNum'");
 $previous_data_bill = mysqli_fetch_assoc($previous_result);
 
-$result =  mysqli_query($link, "SELECT * FROM current_bill WHERE user_id = $uid AND month= '$month' AND user_account= '$accountNum'");
+$result =  mysqli_query($link, "SELECT * FROM current_bill WHERE month= '$month' AND user_account= '$accountNum'");
 $data_bill = mysqli_fetch_assoc($result);
 
-$overduePayment= mysqli_query($link, "SELECT SUM(total) FROM current_bill WHERE user_id = $uid AND user_account= '$accountNum' AND status!='Paid'");
+$overduePayment= mysqli_query($link, "SELECT SUM(total) FROM current_bill  WHERE user_account= '$accountNum' AND status!='Paid'");
 $overdueamount = mysqli_fetch_array($overduePayment);
 
-$res =  mysqli_query($link, "SELECT * FROM current_details WHERE user_id = $uid AND user_account= '$accountNum'");
+$res =  mysqli_query($link, "SELECT * FROM current_details WHERE  user_account= '$accountNum'");
 $data = mysqli_fetch_assoc($res);
 $name = ': ' . $data['name'];
 $address = ': ' . $data['user_address'];

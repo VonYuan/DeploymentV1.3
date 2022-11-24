@@ -49,7 +49,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         } catch (Exception $e) {
              echo 'Something went wrong,try again later';
         }
-        header("Location: View-Registration.php?user_id=$user_id");
+        header("Location: SendReminders.php?user_id=$user_id");
         exit();
     }
     else{

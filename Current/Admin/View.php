@@ -15,26 +15,26 @@ require '../../vendor/autoload.php';
 // Instantiation and passing `true` enables exceptions
 $mail = new PHPMailer(true);
 
-$uid =$_POST['user_id'];
 #$uid = $_SESSION['user_id'];
 //$uname = $_SESSION['user_uname'];
+
+if(isset($_GET['user_account']))
+{
+    $sql_acc = "SELECT * FROM current_details WHERE '".$_GET['user_account']."'";
+    $accountNum = $_GET['user_account'];
+}
 
 $sql_month = "SELECT * FROM bill_month";
 $records_month = mysqli_query($link, $sql_month);
 $data_month = mysqli_fetch_assoc($records_month);
 $due_month = $data_month['month'];
 
-$sql_record = "SELECT * FROM image_upload WHERE user_id='" . $uid . "' AND month = '$due_month' AND status != 'Rejected'";
-$recordsDetails = mysqli_query($link, $sql_record);
-
-$accountNum=$_POST['accountNum'];
-
-$records_img = mysqli_query($link, "SELECT * FROM image_upload WHERE user_id = '$uid'");
-$data_img = mysqli_fetch_assoc($records_img);
-
-$sql_details = "SELECT * FROM current_details WHERE user_id='" . $uid . "' AND user_account = '$accountNum' ";
+$sql_details = "SELECT * FROM current_details WHERE user_account = '$accountNum' ";
 $records_details = mysqli_query($link, $sql_details);
 $dataDetails = mysqli_fetch_array($records_details);
+
+
+
 ?>
 
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.24/datatables.min.css" />
@@ -56,7 +56,7 @@ $dataDetails = mysqli_fetch_array($records_details);
                                     </tr>
                                 </thead>
                                 <?php
-                                $sql_bill = "SELECT * FROM current_bill WHERE user_id='" . $uid . "' AND user_account = '$accountNum'";
+                                $sql_bill = "SELECT * FROM current_bill WHERE user_account = '$accountNum ' ";
                                 $records_bill = mysqli_query($link, $sql_bill);
                                 while ($data_bill = mysqli_fetch_assoc($records_bill)) {
                                 ?>
@@ -80,7 +80,7 @@ $dataDetails = mysqli_fetch_array($records_details);
                                                 if($data_bill['status']=="Over Paid" OR $data_bill['status']=="Paid" OR $data_bill['status']=="Not Paid")
                                                 {
                                             ?>
-                                            <a href="Pdf.php?user_id=<?php echo $uid; ?>&month=<?php echo $data_bill['month']; ?>&user_account=<?php echo $accountNum; ?>" target="_blank" disable>
+                                            <a href="Pdf.php?month=<?php echo $data_bill['month']; ?>&user_account=<?php echo $accountNum; ?>" target="_blank" disable>
                                             <i class="fa fa-download" aria-hidden="true"></i></a>
                                             
                                             <?php 

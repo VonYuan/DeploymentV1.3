@@ -16,8 +16,8 @@ require '../../vendor/autoload.php';
 $mail = new PHPMailer(true);
 
 function allUsers(){
-    $db = new mysqli('gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms');
-    $all = mysqli_query($db, "SELECT * FROM users");
+    $db = new mysqli('localhost', 'root', '', 'ocawbms');
+    $all = mysqli_query($db, "SELECT * FROM current_details");
     $all_users = mysqli_num_rows($all);
     return $all_users;
   }
@@ -314,20 +314,15 @@ $stat = $_SESSION['var'] = 1;
         <div class="row gutters-sm">
             <div class=" col-md-12 mb-2">
                 <div class="border shadow-lg card p-2">
-                    <h4 class="text-center font-weight-bold">All Users(<?php echo allUsers()?>)</h4>
+                    <h4 class="text-center font-weight-bold">All Billing Accounts(<?php echo allUsers()?>)</h4>
                     <hr class="my-3" />
                     <div class="table-responsive-sm">
                         <table class="table table-striped table-hover" style="font-size: 14px;" id="myTable">
                             <thead style="font-weight: bold;font-size: 16px;">
                             <tr>
                                     <td style="text-align: center;">UserName</td>
-                                    <td style="text-align: center;">ID</td>
                                     <td style="text-align: center;">View Bills</td>
                                     <td style="text-align: center;">User Account</td>
-                                    <td style="text-align: center;">NIC Number</td>
-                                    <td style="text-align: center;">Gender</td>
-                                    <td style="text-align: center;">Email</td>
-                                    <td style="text-align: center;">Contact</td>
                                     <td style="text-align: center;">Address</td>
                                     <td style="text-align: center;">Area</td>
                                     <td style="text-align: center;">Category</td>
@@ -335,66 +330,41 @@ $stat = $_SESSION['var'] = 1;
                                 </tr>
                             </thead>
                             <?php
-            $db = new mysqli('gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms');
-            $records = mysqli_query($db,"SELECT user_id, gender, user_name FROM users");
+            $db = mysqli_connect("localhost","root","","ocawbms");
+            $records = mysqli_query($db,"SELECT * FROM current_details");
 
             while($data=mysqli_fetch_array($records)){
                 // $_SESSION['learners_name'] = $data['learners_name'];
                 ?>
                             <tr>
                                 <td style="text-align: center;">
-                                    <?php
-                    if($data['gender'] == "Male"){?>
-                                    <img src="https://img.icons8.com/color/60/000000/person-male.png" />
-                                    <?php
-                    }
+                                    
 
-                    else if($data['gender'] == "Female"){?>
-                                    <img src="https://img.icons8.com/color/60/000000/person-female.png" />
-                                    <?php
-                    }
-
-                    else{?>
-                                    <img src="https://img.icons8.com/material-rounded/24/000000/user.png" />
-                                    <?php
-                    }
-
-                    ?>
-                                    &nbsp;<br><?php echo $data['user_name'];?>
-                                </td>
-
-                                <td style="text-align: center;">
-                                    <?php
+                                <?php
                                         $uid = $data['user_id'];
-                                        $data_username = $data['user_name'];
-                                        $records_details = mysqli_query($db,"SELECT * FROM current_details WHERE user_id = '$uid'");
-                                        $records_user = mysqli_query($db,"SELECT * FROM users WHERE user_id = '$uid'");
-                                        $data_user=mysqli_fetch_array($records_user);
+                                        $data_username = $data['name'];
+                                        $data_acc = $data['user_account'];
+                                        $records_details = mysqli_query($db,"SELECT * FROM current_details WHERE user_id = '$uid' AND user_account = '$data_acc'");
+                                        //$records_user = mysqli_query($db,"SELECT * FROM users WHERE user_id = '$uid'");
+                                        //$data_user=mysqli_fetch_array($records_user);
                                         $data_details=mysqli_fetch_array($records_details)
-                                        ?>
-                                        <div>
-                                            <?php
-                                                echo $data_user["user_id"]
-                                            ?>
-                                        </div>
-                                </td>   
+                                    ?>
+
+                                    &nbsp;<br><?php echo $data['name'];?>
+                                </td>
+
                                 <td style="text-align: center;">
-                                    <form method="post" action="View.php">
-                                        <input type="hidden" name="accountNum" value="<?php echo $data_details['user_account']; ?>">
-                                        <input type="hidden" name="user_id" value="<?php echo $data_details['user_id']; ?>">
+                                <input type = "button" onclick = "location = 'View.php?user_account=<?php echo $data['user_account']?>'" value ="View" >
+                                    <!--<form method="post" action="View.php">
+                                        <input type="hidden" name="user_account" value="<?php //echo $data_details['user_account']; ?>">
+                                        <input type="hidden" name="user_id" value="<?php //echo $data_details['user_id']; ?>">
                                         <button type="submit" >View</button>
-                                    </form> 
+                                    </form>-->
                                 </td>
 
                                 <td style="text-align: center;">
                                     <?php
-                                        if (!empty($data_details["user_account"]))
-                                        {
-                                            echo $data_details["user_account"] ;
-                                        }else
-                                        {
-                                            echo "-";
-                                        }
+                                        echo $data_details['user_account'];
                                     ?>
                                 </td>
 
@@ -402,51 +372,13 @@ $stat = $_SESSION['var'] = 1;
 
                                 <td style="text-align: center;">
                                     <?php
-                                        echo $data_user["user_nic"] 
+                                        echo $data_details["user_address"];
                                     ?>
                                 </td>
 
                                 <td style="text-align: center;">
                                     <?php
-                                        echo $data_user["gender"]
-                                    ?>
-                                </td>
-
-                                <td style="text-align: center;">
-                                    <?php
-                                        echo $data_user["user_email"]
-                                    ?>
-                                </td>
-
-                                <td style="text-align: center;">
-                                    <?php
-                                        echo $data_user["user_contact"]
-                                    ?>
-                                </td>
-
-                                <td style="text-align: center;">
-                                    <?php
-                                        if (!empty($data_details["user_address"]))
-                                        {
-                                            echo $data_details["user_address"] ;
-                                        }else
-                                        {
-                                            echo "-";
-                                        }
-                                       
-
-                                    ?>
-                                </td>
-
-                                <td style="text-align: center;">
-                                    <?php
-                                        if (!empty($data_details["user_area"]))
-                                        {
-                                            echo $data_details["user_area"] ;
-                                        }else
-                                        {
-                                            echo "-";
-                                        }
+                                        echo $data_details["user_area"] ;
                                     ?>
                                 </td>
 
@@ -464,18 +396,12 @@ $stat = $_SESSION['var'] = 1;
 
                                 <td style="text-align: center;">
                                     <?php
-                                        if (!empty($data_details["category"]))
-                                        {
-                                            echo $data_details["category"] ;
-                                        }else
-                                        {
-                                            echo "-";
-                                        }
+                                        echo $data_details["category"] ;
                                     ?>
                                 </td>
 
                                 <td>
-                                    <input type = "button" onclick = "location = 'Delete.php?user_id=<?php echo $data_user['user_id']?>'" value ="Delete" >
+                                    <input type = "button" onclick = "location = 'Delete.php?user_account=<?php echo $data['user_account']?>'" value ="Delete" >
                                 </td>
                             </tr>
 
