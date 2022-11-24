@@ -290,7 +290,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             </div>
 
                             <div class="form-group">
-                                <label>Amount(Rs.)</label>
+                                <label>Amount(RM.)</label>
                                 <input type="text" class="form-control" name="pay_amount" required>
                             </div>
                             <div class="form-group">

@@ -191,7 +191,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <div class="form-group">
                                         <input type="submit" class="btn btn-md btn-block myBtn" value="Login" style="float: right;background-color: #5777ba;color: white;width: 25%;">
                                     </div><br><br>
-                                    <p>You will be logged into Gas billong management system. </p>
+                                    <p>You will be logged into Gas billing management system. </p>
                                     <div class="forgot float-right">
                                         <a href="User-Forgot-Password.php" style="text-decoration: none;">Forgot Password?</a>
                                     </div>
