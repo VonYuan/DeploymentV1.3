@@ -79,8 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty(trim($_POST["user_account"]))) {
         $acc_err = "Please enter the account number.";
-    } elseif (strlen(trim($_POST["user_account"])) != 10){
-        $acc_err = "Invalid Account Number. SHould consist with only 10 numbers";
+    } elseif (strlen(trim($_POST["user_account"])) != 6){
+        $acc_err = "Invalid Account Number. SHould consist with only 6 numbers";
     } else {
         $user_account = trim($_POST["user_account"]);
     }

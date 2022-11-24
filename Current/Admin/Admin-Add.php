@@ -306,13 +306,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div><br>
 
-            <div class="form-group">
-                <label>Type</label>
-                <select id="type" name="type" class="form-control">
-                    <option value="Electricity">Electricity</option>
-                    <option value="Water">Water</option>
-                </select>
-            </div><br>
+            
 
             <div class="form-group">
                 <button class="btn btn-danger btn-lg btn-block myBtn" type="submit " name="submit" style="width: 100%;">Add</button>
