@@ -43,28 +43,10 @@ $stat = $_SESSION['var'] = 1;
                     <h4 class="text-center font-weight-bold">All Address</h4>
                     <hr class="my-3" />
                     <div class="table-responsive-sm">
-                    <div class="category-filter">
-                        <select id="categoryFilter" class="form-control">
-                        <option selected value="">Select Area</option>
-                         <option value="APT">Airport Road</option>
-                          <option value="BBP">Bandar Baru permy Jaya</option>
-                           <option value="BKM">Luak/Jalan Bakam</option>
-                           <option value="BRT">Brighton Road</option>
-                            <option value="KRP">Krokop</option>
-                            <option value="LTG">Lutong</option>
-                             <option value="MPR">PermaisuriPujut</option>
-                             <option value="PGA">Piasau</option>
-                             <option value="PSU">Pujut</option>
-                              <option value="PUJ">Senadin</option>
-                             <option value="SND">Town</option>
-                             <option value="TWN">Others</option>
-                        </select>
-                        </div>
-                        <table class="table table-striped table-hover" style="font-size: 14px;" id="filterTable">
+                        <table class="table table-striped table-hover" style="font-size: 14px;" id="myTable">
                             <thead style="font-weight: bold;font-size: 16px;">
                                 <tr>
                                     <td style="text-align: center;">Address</td>
-                                    <td style="text-align: center;">Area</td>
                                     <td style="text-align: center;">Name</td>
                                     <td style="text-align: center;">Gas Meter Number</td>
                                     <td style="text-align: center;">Bill</td>
@@ -72,7 +54,7 @@ $stat = $_SESSION['var'] = 1;
                             </thead>
                             <?php
             $db = new mysqli('gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms');
-            $records = mysqli_query($db,"SELECT user_id, user_address, name,user_account,user_area FROM current_details");
+            $records = mysqli_query($db,"SELECT user_id, user_address, name,user_account FROM current_details");
 
             while($data=mysqli_fetch_array($records)){
                 // $_SESSION['learners_name'] = $data['learners_name'];
@@ -80,9 +62,6 @@ $stat = $_SESSION['var'] = 1;
                             <tr>
                                 <td style="text-align: center;">
                                     &nbsp;<br><?php echo $data['user_address'];?>
-                                </td>
-                                <td style="text-align: center;">
-                                    &nbsp;<br><?php echo $data['user_area'];?>
                                 </td>
                                 <td style="text-align: center;">
                                     &nbsp;<br><?php echo $data['name'];?>
@@ -201,45 +180,6 @@ var myChart = new Chart(ctx, {
 
     }
 });
-</script>
-<script>
-    $("document").ready(function () {
-      $("#filterTable").dataTable({
-        "searching": true
-      });
-      //Get a reference to the new datatable
-      var table = $('#filterTable').DataTable();
-      //Take the category filter drop down and append it to the datatables_filter div. 
-      //You can use this same idea to move the filter anywhere withing the datatable that you want.
-      $("#filterTable_filter.dataTables_filter").append($("#categoryFilter"));
-      
-      //Get the column index for the Category column to be used in the method below ($.fn.dataTable.ext.search.push)
-      //This tells datatables what column to filter on when a user selects a value from the dropdown.
-      //It's important that the text used here (Category) is the same for used in the header of the column to filter
-      var categoryIndex = 1;
-      $("#filterTable th").each(function (i) {
-        if ($($(this)).html() == "Category") {
-          categoryIndex = i; return false;
-        }
-      });
-      //Use the built in datatables API to filter the existing rows by the Category column
-      $.fn.dataTable.ext.search.push(
-        function (settings, data, dataIndex) {
-          var selectedItem = $('#categoryFilter').val()
-          var category = data[categoryIndex];
-          if (selectedItem === "" || category.includes(selectedItem)) {
-            return true;
-          }
-          return false;
-        }
-      );
-      //Set the change event for the Category Filter dropdown to redraw the datatable each time
-      //a user selects a new filter.
-      $("#categoryFilter").change(function (e) {
-        table.draw();
-      });
-      table.draw();
-    });
 </script>
 
 <?php
