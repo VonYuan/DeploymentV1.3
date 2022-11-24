@@ -30,7 +30,7 @@ if (!isset($_SESSION['loggedin_admin'])) {
 
 function pendingPay()
 {
-    $db = new mysqli('gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms');
+    $db = new mysqli('localhost', 'root', '', 'ocawbms');
     $sql_month = "SELECT * FROM bill_month";
     $records_month = mysqli_query($db, $sql_month);
     $data_month = mysqli_fetch_assoc($records_month);
@@ -41,7 +41,7 @@ function pendingPay()
 }
 function totalPay()
 {
-    $db = new mysqli('gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms');
+    $db = new mysqli('localhost', 'root', '', 'ocawbms');
     $sql_month = "SELECT * FROM bill_month";
     $records_month = mysqli_query($db, $sql_month);
     $data_month = mysqli_fetch_assoc($records_month);
@@ -53,7 +53,7 @@ function totalPay()
 
 
 function allUsers(){
-    $db = new mysqli('gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms');
+    $db = new mysqli('localhost', 'root', '', 'ocawbms');
     $all = mysqli_query($db, "SELECT * FROM users");
     $all_users = mysqli_num_rows($all);
     return $all_users;
@@ -732,189 +732,27 @@ if (isset($_POST['submit_regi'])) {
 
             <div class=" col-md-14 mb-2">
                 <div class="border shadow-lg card p-2">
-                    <h3 class="align-items-center text-center p-2">Register User</h3>
+                    <h3 class="align-items-center text-center p-2">Add Meter Reader</h3>
                     <div class="panel-heading">
                         <div class="stat-panel text-center">
                             <div class="stat-panel-number h1 ">
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#register">
-                                    <div class="row">
+                                <button type="submit" class="btn" data-bs-toggle="modal" data-bs-target="#register" id = "redirect">
+                                        <div class="row">
                                         <div class="col-md-3" style="padding-right:10px ;color:#CD7F32"><i
                                                 class="fa fa-user-plus fa-2x" aria-hidden="true"></i>
                                         </div>
-                                        <div class="col-md-8">
-                                            <p style="color: grey; float: left;">Click here to register a user account
-                                                for
-                                                Gas
-                                                billing  system</p>
-                                        </div>
+                                            <div class="col-md-8">
+                                                <p style="color: grey; float: left;">Click here to add a meter reader account</p>
+                                        </form>
                                     </div>
                                 </button>
 
                                 <!-- Modal -->
-                                <div class="modal fade" id="register" tabindex="-1" aria-labelledby="registerLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header " style="color: white;background-color: #CD7F32;">
-                                                <h5 class="modal-title" id="registerLabel">Create User Account</h5>
-                                                <button type="button" class="btn" data-bs-dismiss="modal"
-                                                    aria-label="Close" style="color: white;">
-                                                    <i class="fa fa-times" aria-hidden="true"></i></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form
-                                                    action="<?php $_SESSION['var'] = 2; echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
-                                                    method="POST" class="px-3 needs-validation" id="user_add">
-                                                    <p style="font-size: 14px;">*Please fill this form to register for
-                                                        the
-                                                        Gas billing  system. All
-                                                        the information is related to manual bill</p>
-
-                                                    <div class="form-group">
-                                                        <label>User Email</label>
-                                                        <input type="text" class="form-control" name="stat"
-                                                            placeholder="Enter the User Email" required>
-                                                        <span class="help-block"><?php echo $stat_err; ?></span>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Name of the Person</label>
-                                                        <input type="text" class="form-control" name="name"
-                                                            placeholder="Enter the Name" value="<?php echo $name; ?>"
-                                                            required>
-                                                        <span class="help-block"><?php echo $name_err; ?></span>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Address</label>
-                                                        <input type="text" class="form-control" name="user_address"
-                                                            placeholder="Enter the Address"
-                                                            value="<?php echo $user_address; ?>" required>
-                                                        <span class="help-block"><?php echo $address_err; ?></span>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label>Area Office</label>
-                                                        <input type="text" class="form-control" name="user_area"
-                                                            placeholder="Enter the Area Office"
-                                                            value="<?php echo $user_area; ?>" required>
-                                                        <span class="help-block"><?php echo $area_err; ?></span>
-                                                    </div>
-
-                                                    <div class="row gutters-sm">
-                                                        <div class="form-group col-md-6">
-                                                            <label>Premises ID</label>
-                                                            <input type="text" class="form-control" name="user_premises"
-                                                                placeholder="Enter the Premises ID"
-                                                                value="<?php echo $user_premises; ?>" required>
-                                                            <span class="help-block"><?php echo $premises_err; ?></span>
-                                                        </div>
-
-                                                        <div class="form-group col-md-6">
-                                                            <label>Gas Account Number</label>
-                                                            <input type="text" class="form-control" name="user_account"
-                                                                placeholder="Enter the Account Number"
-                                                                value="<?php echo $user_account; ?>" required>
-                                                            <span class="help-block"><?php echo $acc_err; ?></span>
-                                                        </div>
-                                                    </div>
-                                                    <br>
-                                                    <hr class="my-3" />
-
-                                                    <div class="row gutters-sm" style="float: right;">
-                                                        <div class="form-group col-md-6">
-                                                            <button class="btn btn-block myBtn" type="submit "
-                                                                style="background-color: #CD7F32;color: white;"
-                                                                name="submit_regi">Register</button>
-                                                        </div>
-                                                </form>
-                                                <div class="form-group col-md-6">
-                                                    <button type="button" class="btn btn-secondary"
-                                                        data-bs-dismiss="modal">Cancel</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div><br>
-            <div class=" col-md-14 mb-2">
-                <div class="border shadow-lg card p-2">
-                    <h3 class="align-items-center text-center p-2">Red Bill Users</h3>
-                    <div class="panel-heading">
-                        <div class="stat-panel text-center">
-                            <div class="stat-panel-number h1 ">
-                                <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#redBill">
-                                    <div class="row">
-                                        <div class="col-md-3" style="padding-right:10px ;color:red"><i
-                                                class="fa fa-user-times fa-2x" aria-hidden="true"></i>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <p style="color: grey; float: left;">Users who
-                                                didn't pay the bill within the deadline.</p>
-                                        </div>
-                                    </div>
-                                </button>
-
-                                
-
-                                <!-- Modal -->
-                                <div class="modal fade" id="redBill" tabindex="-1" aria-labelledby="redBillLabel"
-                                    aria-hidden="true">
-                                    <div class="modal-dialog modal-lg modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header bg-danger" style="color: white;">
-                                                <h5 class="modal-title" id="redBillLabel">Red Bill Users</h5>
-                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
-                                                    aria-label="Close" style="color: white;">
-                                                    <i class="fa fa-times" aria-hidden="true"></i></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="table-responsive-md">
-                                                    <table class="table table-striped table-hover"
-                                                        style="font-size: 14px;" id="redTable">
-                                                        <thead>
-                                                            <tr>
-                                                                <th style="text-align: center;">UserName</th>
-                                                                <th style="text-align: center;">Month</th>
-                                                                <th style="text-align: center;">Contact</th>
-                                                                <th style="text-align: center;">View</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <?php
-                                                $red_bill = mysqli_query($link,"SELECT DISTINCT user_id,month FROM red_bill");
-                                                while($results_red_bill = mysqli_fetch_assoc($red_bill)){
-                                                    $red_id = $results_red_bill['user_id'];
-                                                    $users = mysqli_query($link,"SELECT * FROM users WHERE user_id = '$red_id'");
-                                                    $results_users = mysqli_fetch_assoc($users);
-                                                    ?>
-                                                        <tr style="text-align: center; font-weight: normal;">
-                                                            <td><?php echo $results_users['user_name'] ?></td>
-                                                            <td><?php echo $results_red_bill['month'] ?></td>
-                                                            <td><?php echo $results_users['user_contact'] ?></td>
-                                                            <td><a class="btn btn-danger" role="button" href="View-Registration.php?user_id=<?php echo $red_id ?>">View</a></td>
-                                                        </tr>
-                                                        <?php
-                                                }
-                                                ?>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-bs-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <!--<div class="col-md-14">
                 <div class="card border mb-3 p-2">
@@ -1171,6 +1009,14 @@ if (isset($_POST['submit_regi'])) {
     $(document).ready(function() {
         $('#rejectedTable').DataTable();
     });
+</script>
+
+<script>
+        document.getElementById("redirect").addEventListener("click", redirectFunction);
+        
+        function redirectFunction(){
+            window.location.href = "../../MeterReader-Register.php";
+        }
 </script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>

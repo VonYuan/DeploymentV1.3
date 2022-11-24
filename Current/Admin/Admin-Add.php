@@ -15,25 +15,25 @@ require '../../vendor/autoload.php';
 $mail = new PHPMailer(true);
 
 
-$admin_fullname = $admin_username = $admin_gender = $admin_nic = $admin_email = $type =  $admin_contact = $admin_password = $confirm_password = $send_password = "";
+$admin_name = $admin_name = $admin_gender = $admin_nic = $admin_email = $type =  $admin_contact = $admin_password = $confirm_password = $send_password = "";
 $name_err = $username_err = $password_err = $email_err = $confirm_password_err = $nic_err = $contact_err = "";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Validate Admin Name
-    if (empty(trim($_POST["admin_fullname"]))) {
+    if (empty(trim($_POST["admin_name"]))) {
         $name_err = "Please enter a name.";
     } else {
         // Prepare a select statement
-        $sql = "SELECT admin_id FROM admin WHERE admin_fullname = ?";
+        $sql = "SELECT admin_id FROM admin WHERE admin_name = ?";
 
         if ($stmt = $link->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
             $stmt->bind_param("s", $param_name);
 
             // Set parameters
-            $param_name = trim($_POST["admin_fullname"]);
+            $param_name = trim($_POST["admin_name"]);
 
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($stmt->num_rows() >= 1) {
                     $name_err = "This admin already has an account!";
                 } else {
-                    $admin_fullname = trim($_POST["admin_fullname"]);
+                    $admin_name = trim($_POST["admin_name"]);
                 }
             } else {
                 echo "Oops! Something went wrong when inserting name. Please try again later.";
@@ -55,18 +55,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Validate Admin Username
-    if (empty(trim($_POST["admin_username"]))) {
+    if (empty(trim($_POST["admin_name"]))) {
         $username_err = "Please enter a username.";
     } else {
         // Prepare a select statement
-        $sql = "SELECT admin_id FROM admin WHERE admin_username = ?";
+        $sql = "SELECT admin_id FROM admin WHERE admin_name = ?";
 
         if ($stmt = $link->prepare($sql)) {
             // Bind variables to the prepared statement as parameters
             $stmt->bind_param("s", $param_username);
 
             // Set parameters
-            $param_username = trim($_POST["admin_username"]);
+            $param_username = trim($_POST["admin_name"]);
 
             // Attempt to execute the prepared statement
             if ($stmt->execute()) {
@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($stmt->num_rows() >= 1) {
                     $username_err = "This username is already taken.";
                 } else {
-                    $admin_username = trim($_POST["admin_username"]);
+                    $admin_username = trim($_POST["admin_name"]);
                 }
             } else {
                 echo "Oops! Something went wrong when inserting username. Please try again later.";
@@ -165,30 +165,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $admin_gender = $_POST['gender'];
-    $type = $_POST['type'];
 
     // Check input errors before inserting in database
     if (empty($name_err) && empty($username_err) && empty($email_err) && empty($nic_err) && empty($contact_err) && empty($password_err) && empty($confirm_password_err)) {
 
 
         // Prepare an insert statement
-        $sql = "INSERT INTO admin (admin_fullname, admin_username, gender, admin_nic, admin_email, admin_contact, admin_password,type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO admin (admin_name, gender, admin_nic, admin_email, admin_contact, admin_password) VALUES (?, ?, ?, ?, ?, ?)";
 
         if ($stmt = $link->prepare($sql)) {
 
 
             // Bind variables to the prepared statement as parameters
-            if ($stmt->bind_param("ssssssss", $param_name, $param_username, $param_gender, $param_nic, $param_email, $param_contact, $param_password, $param_type))
+            if ($stmt->bind_param("ssssss",$param_name, $param_gender, $param_nic, $param_email, $param_contact, $param_password))
 
-                // Set parameters
-                $param_name = $admin_fullname;
-            $param_username = $admin_username;
+            // Set parameters
+            $param_name = $admin_name;
             $param_gender = $admin_gender;
             $param_nic = $admin_nic;
             $param_email = $admin_email;
             $param_contact = $admin_contact;
-            $param_password = password_hash($admin_password, PASSWORD_DEFAULT); // Creates a password hash
-            $param_type = $type;
+            $param_password = password_hash($admin_password, PASSWORD_DEFAULT); // Creates a password hash   
 
 
             // Attempt to execute the prepared statement
@@ -213,8 +210,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $mail->Subject = 'Online Electricity and Water Bill Management System';
 
                     $mail->Body    = "<h3>Welcome to the Online Electricity and Water Bill Management System</h3><br><br>Your administrator account has been created succesfully.<br><br> Here's your account information:<br>
-                     Name: $admin_fullname <br>
-                     Username: $admin_username <br>
+                     Name: $admin_name <br>
                      Gender: $admin_gender<br>
                      NIC: $admin_nic<br>
                      Email: $admin_email<br>
@@ -226,9 +222,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     //  echo $user->showwMessage('success','We have send you  reset link,please check your email');
 
                 } catch (Exception $e) {
-                    echo 'Something went wrong,try again later';
+                    echo("<script>location.href = 'Admin-Dashboard.php';</script>");
                 }
-                header("Location: ../../Current-Admin-Login.php");
+                // header("Location: Admin-Dashboard.php");
                 exit();
             } else {
 
@@ -254,15 +250,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p style="font-size: 14px;">Please fill this form to create an admin account.</p>
 
             <div class="form-group">
-                <label>Admin Fullname</label>
-                <input type="text" class="form-control" name="admin_fullname" placeholder="Enter Admin Name" value="<?php echo $admin_fullname; ?>" required>
+                <label>Admin Name</label>
+                <input type="text" class="form-control" name="admin_name" placeholder="Enter Admin Name" value="<?php echo $admin_name; ?>" required>
                 <span class="help-block"><?php echo $name_err; ?></span>
-            </div><br>
-
-            <div class="form-group">
-                <label>Admin Username</label>
-                <input type="text" class="form-control" name="admin_username" placeholder="Enter Admin Username" value="<?php echo $admin_username; ?>" required>
-                <span class="help-block"><?php echo $username_err; ?></span>
             </div><br>
 
             <div class="row">
@@ -306,8 +296,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div><br>
 
-            
-
             <div class="form-group">
                 <button class="btn btn-danger btn-lg btn-block myBtn" type="submit " name="submit" style="width: 100%;">Add</button>
             </div><br>
@@ -318,12 +306,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <!-- Registration Form End -->
 </div>
 
-<footer>
-    <div class="pull-right">
-        Online Electricity and Water Bill Management System
-    </div>
-    <div class="clearfix"></div>
-</footer>
+<?php
+require_once 'Admin-Footer.php';
+?>
 <!-- /footer content -->
 </div>
 
