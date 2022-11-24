@@ -111,7 +111,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     admin_contact = '$admin_contact', admin_email = '$admin_email', gender = '$gender' WHERE admin_id = '$admin_id'";
 
     if(mysqli_query($link,$update)){
-        header("Location:Admin-Dashboard.php");
+        header("Location:Admin-Login.php");
     }
 
     else{
