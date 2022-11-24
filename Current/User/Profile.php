@@ -80,6 +80,7 @@ $username_err = $password_err = $email_err = $confirm_password_err = $nic_err = 
 
                             <div class="mt-3">
                                 <h4><?php echo $user_name ?></h4>
+                                <a href="Edit-Profile.php" class="btn btn-outline-success" role="button">Edit Profile&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                                 <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#editModal">
                                     Edit Profile&nbsp;<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                 </button>
@@ -91,6 +92,7 @@ $username_err = $password_err = $email_err = $confirm_password_err = $nic_err = 
                                         <div class="modal-content">
                                             <div class="modal-header bg-dark" style="color: white;">
                                                 <h5 class="modal-title" id="editModalLabel">Edit Profile</h5>
+                                                
                                                 <button type="button" class="btn btn-dark" data-bs-dismiss="modal" style="color: white;" aria-label="Close"><i class="fa fa-times" aria-hidden="true"></i></button>
                                             </div>
                                             <div class="modal-body" style="text-align: left;">
@@ -118,7 +120,7 @@ $username_err = $password_err = $email_err = $confirm_password_err = $nic_err = 
                                                     </div><br>
                                                     <div class="form-group">
                                                         <label>Email</label>
-                                                        <input type="email" class="form-control" name="user_email" placeholder="Enter Email" value="<?php echo $data['user_email']; ?>">
+                                                        <input type="text" class="form-control" name="user_email" placeholder="Enter Email" value="<?php echo $data['user_email']; ?>">
                                                         <span class="help-block"><?php echo $email_err; ?></span>
                                                     </div><br>
 

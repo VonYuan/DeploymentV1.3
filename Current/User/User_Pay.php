@@ -22,10 +22,8 @@ $records_bill = mysqli_query($link, $sql_bill);
 $one_bill = mysqli_fetch_assoc($records_bill);
 
 
-$totalpay=$_GET['totalpay'];
 
-          
-
+echo $text;
 
 
 require_once '../../vendor/autoload.php';
@@ -129,7 +127,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     
             $updatecreditamount="UPDATE current_bill SET credit = '0' WHERE user_id = '$user_id' AND month = '$due_month' AND user_account= '$accountNum'";
            
-            $updatetotalpay="UPDATE current_bill SET  total='$totalpay' WHERE user_id = '$uid' AND month = '$due_month'";  
+
             
            
 
@@ -171,7 +169,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
             }
            
-            mysqli_query($link,$updatetotalpay);
+            
             mysqli_query($link,$activity);
             mysqli_query($link,$updatetotal);
             mysqli_query($link,$updatcharge);
@@ -592,8 +590,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 </div>
 
                                 <div class="form-group col-md-6">
-                                    <label>Total Amount Due (RM.)</label>
-                                    <input type="text" class="form-control" value="<?php echo $totalpay?>"
+                                    <label>Total Amount Due (Rs.)</label>
+                                    <input type="text" class="form-control" value="<?php echo $bill['total'] ?>"
                                         disabled>
                                 </div>
                             </div>
@@ -627,7 +625,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     ?>
         </div>
 
-        
     </div>
 </div>
 </div>

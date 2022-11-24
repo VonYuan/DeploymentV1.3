@@ -11,7 +11,7 @@ $recordsDetails = mysqli_query($link, $sql_record);
 
 <?php
 
-
+$name_err="";
 //$users_data =check_login($con);
 
 
@@ -79,8 +79,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty(trim($_POST["user_account"]))) {
         $acc_err = "Please enter the account number.";
-    } elseif (strlen(trim($_POST["user_account"])) != 10){
-        $acc_err = "Invalid Account Number. SHould consist with only 10 numbers";
+    } elseif (strlen(trim($_POST["user_account"])) != 6){
+        $acc_err = "Invalid Account Number. Should only consist 6 charcter";
     } else {
         $user_account = trim($_POST["user_account"]);
     }
@@ -99,10 +99,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if($count==0)
         {
            $account_exist_err="Account Number didnt exist";
-            echo $name;
-            echo $count;
-            echo "fails";
-            
         }else
         {
             if($countself>0)
@@ -117,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                $insertResult=mysqli_query($link,$insertsql);
                echo "<script> location.href='Tenant.php'; </script>"; 
             }
-            
+
             
             
         }
@@ -144,34 +140,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <div class="modal-content">
                                                     <div class="modal-header bg-danger">
                                                         <h4 class="modal-title" id="photo Label" style="color: white;">
-                                                            Register Gas Bill</h4>
-                                                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" aria-label="Close">
-                                                            <i class="fa fa-times" aria-hidden="true"></i></button>
+                                                            Adding Owner Account</h4>
+                                                        
                                                     </div>
                                                     <div class="modal-body">
                                                         <div class="px-3 needs-validation">
                                                             <div class="form-row">
                                                                 <!--<div class="form-group col-md-2"><img src="../../images/ceb_bill.png"></div>-->
                                                                 <div class="form-group col-md-12 p-2">
-                                                                    <h5 style="text-align: center;">Registration for Gas Billing System</h5>
+                                                                    <h5 style="text-align: center;">Adding Owner Form</h5>
                                                                 </div>
                                                             </div>
                                                             
                                                         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" class="px-3 needs-validation" id="user_add">
-                                                                
-                                                             <p style="font-size: 14px;">*Please fill this form to register for the Gas bill management system. All the information is related to manual bill</p>
+                                                             
                                                                 
                                                                 
                                                             <div class="form-group">
                                                                 <label>Bill Name</label>
-                                                                <input type="text" class="form-control" name="name" required placeholder="Enter the Name">
+                                                                <input type="text" class="form-control" name="name" placeholder="Enter the Name">
+                                                                <span class="help-block"><?php echo $name_err; ?></span>
                                                             </div>
                                                                 
 
        
                                                             <div class="form-group">
-                                                                <label>Gas Account Number</label>
-                                                                <input type="text" class="form-control" name="user_account" placeholder="Enter the Account Number" required>
+                                                                <label>Owner Account Number</label>
+                                                                <input type="text" class="form-control" name="user_account" placeholder="Enter the Account Number">
                                                                 <p class="text-danger"><?php if(isset($acc_err)) echo $acc_err ;?>  </p>
                                                                 <p class="text-danger"><?php if(isset($account_exist_err)) echo $account_exist_err ;?>  </p>
                                                             </div>

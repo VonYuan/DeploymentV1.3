@@ -1,8 +1,6 @@
 <?php
 include_once 'User-Header.php';
 require_once '../../Config.php';
-
-
 $user_id = $_SESSION['uid'];
 $uname = $_SESSION['user_uname'];
 $sql_record = "SELECT * FROM current_details WHERE user_id='" . $user_id . "'";
@@ -156,20 +154,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
         // Prepare an insert statement
-        $sql = "INSERT INTO current_details (user_id, name, user_address, user_area, user_account, category,user_premises) VALUES (?, ?, ?, ?, ?, ?,?)";
+        $sql = "INSERT INTO current_details (user_id, name, user_address, user_area, user_account, category) VALUES (?, ?, ?, ?, ?, ?)";
 
         if ($stmt = $link->prepare($sql)) {
 
 
             // Bind variables to the prepared statement as parameters
-            if ($stmt->bind_param("issssss",$param_userid, $param_name, $param_address, $param_area, $param_acc, $param_category,$param_premis))
+            if ($stmt->bind_param("isssss",$param_userid, $param_name, $param_address, $param_area, $param_acc, $param_category))
 
                 // Set parameters
             $param_userid = $user_id;
             $param_name = $name;
             $param_address = $user_address;
             $param_area = $user_area;
-            $param_premis = 0;
+           
             $param_acc = $user_account; // Creates a password hash
             $param_category=$user_category;
 
@@ -236,7 +234,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                             <div class="form-row">
                                                                 <div class="form-group col-md-6">
                                                                 <label>Area</label>
-                                                                <select class="form-select"  name='user_area'>
+                                                                <select class="form-select" aria-label="Default select example" name='user_area'>
                                                                   <option selected value="">Select Area</option>
                                                                   <option value="APT">Airport Road</option>
                                                                   <option value="BBP">Bandar Baru permy Jaya</option>
