@@ -45,10 +45,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $param_month = $due_month;
              
 
-            #can work
-            $update = "UPDATE current_bill SET status ='Not Paid' WHERE user_id = '$user_id' AND month = '$due_month'";
-            #cant work
-             #$update = "UPDATE current_bill SET status ='Paid' WHERE user_id = '$uid' AND month = '$due_month' AND user_account= '$accountNum'";
+            $update = "UPDATE current_bill SET status ='Not Paid' WHERE user_id = '$uid' AND month = '$due_month' AND user_account='$accountNum'";
             
 
             $message = "Paid the bill for $accountNum through online.";
