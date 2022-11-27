@@ -138,9 +138,8 @@ $username_err = $password_err = $email_err = $confirm_password_err = $nic_err = 
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#editPasswordModal">
-                                    Change Password&nbsp;<i class="fa fa-unlock-alt" aria-hidden="true"></i>
-                                </button>
+                                <a href="EditPassword.php" class="btn btn-outline-warning" role="button">Change Password&nbsp;<i class="fa fa-unlock-alt" aria-hidden="true"></i></a>
+
 
 
                                 <!-- Modal -->
