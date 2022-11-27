@@ -98,7 +98,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
              
           
             #can work
-            $update = "UPDATE current_bill SET status ='Not Paid' WHERE user_id = '$uid' AND month = '$due_month'";
+            $update = "UPDATE current_bill SET status ='Not Paid' WHERE user_id = '$uid' AND month = '$due_month' AND user_account='$accountNum'"; 
             #cant work
              #$update = "UPDATE current_bill SET status ='Paid' WHERE user_id = '$uid' AND month = '$due_month' AND user_account= '$accountNum'";
             
