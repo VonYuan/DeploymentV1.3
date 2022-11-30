@@ -1,6 +1,5 @@
 <?php
 require_once '../../Config.php';
-require_once 'Admin-Headers.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -114,5 +113,5 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     mysqli_close($link);
 }
-require_once 'Admin-Footer.php';
+
 ?>
