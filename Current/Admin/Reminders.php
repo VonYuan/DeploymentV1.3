@@ -325,7 +325,7 @@ $stat = $_SESSION['var'] = 1;
                                 </tr>
                             </thead>
                             <?php
-       $db = new mysqli('localhost', 'id19936628_gasadmin', 'AdminLogin123!', 'id19936628_petrosgas');
+       $db = new mysqli('petrosbilling.mysql.database.azure.com', 'petrosadmin', 'AdminLogin123', 'petrosbilling');
 
     $records = mysqli_query($db,"SELECT user_id, gender, user_name FROM users");
 

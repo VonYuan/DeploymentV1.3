@@ -235,13 +235,11 @@ if(!empty($previousmonthbill['meter']))
                                                                 required placeholder="Ex:23654">
                                                             <span class="help-block"><?php echo $meter_err; ?></span>
                                                         </div>
-                                                        
-                                               
-                                                        
+
                                                         <div class="form-group">
                                                             <label>Due Date</label>
                                                             <input type="date" class="form-control" name="due" 
-                                                            value="<?php echo $bill_due_date ?>" disabled >
+                                                            value="<?php echo $bill_due_date ?>">
                                                         </div>
 
                                                 </div>
