@@ -1,5 +1,5 @@
 <?php
-    $con = new mysqli('gasmeter.mysql.database.azure.com', 'gasmeter', 'AdminLogin123', 'ocawbms');
+    $con =new mysqli('petrosbilling.mysql.database.azure.com', 'petrosadmin', 'AdminLogin123', 'petrosbilling');
 
 if (isset($_GET['user_id']) && isset($_GET['month'])) {
     

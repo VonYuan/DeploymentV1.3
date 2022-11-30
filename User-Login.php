@@ -9,7 +9,7 @@ session_start();
 //   exit;
 // }
 
-require_once "config.php";
+require_once "Config.php";
 
 // Define variables and initialize with empty values
 $user_name = $user_password = "";

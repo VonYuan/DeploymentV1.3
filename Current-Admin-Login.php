@@ -8,7 +8,7 @@ session_start();
 //   exit;
 // }
 
-require_once "config.php";
+require_once "Config.php";
 
 // Define variables and initialize with empty values
 $admin_username = $admin_password = "";
@@ -59,7 +59,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if ($stmt->fetch()) {
                         if (password_verify($admin_password, $hashed_password)) {
                             // Password is correct, so start a new session
-                            session_start();
 
                             // Store data in session variables
                             $_SESSION["loggedin_admin"] = true;
