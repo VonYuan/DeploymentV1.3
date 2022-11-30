@@ -81,8 +81,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $sql = "INSERT INTO current_bill (user_id, user_account, month, meter, units, charge,charge_current_Month,total,overall_payment, amount_pay,due) VALUES ('$user_id', '$accountNum', '$month', '$meter', '$units', '$charges','$charges', '$total','$total', '0','$bill_due_date')";
     
 
-    mysqli_query($link,$sql);
-    header("Location:View-Address.php");
+    if(mysqli_query($link,$sql))
+    {
+        echo "done";
+    }
+    //header("Location:View-Address.php");
 
 
 }
