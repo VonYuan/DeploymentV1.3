@@ -1,5 +1,6 @@
 <?php
  //start the session
+session_start();
 
 define('DB_SERVER', 'petrosbilling.mysql.database.azure.com');
 define('DB_USERNAME', 'petrosadmin');
