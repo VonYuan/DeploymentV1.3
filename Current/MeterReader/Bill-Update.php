@@ -1,5 +1,6 @@
 <?php
 require_once '../../Config.php';
+require_once 'Admin-Headers.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -97,8 +98,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             $mail->Body    = "Your Payable Bill was prepared. Please login to your account and pay it before dealine:<br>
              <br>Best Regards, <br>OEAWBMS Team";
 
-            // $mail->send();
-            //  echo $user->showwMessage('success','We have send you  reset link,please check your email');
+        
 
         } catch (Exception $e) {
              echo 'Something went wrong,try again later';
@@ -114,4 +114,5 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     mysqli_close($link);
 }
+require_once 'Admin-Footer.php';
 ?>
