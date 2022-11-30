@@ -84,6 +84,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(mysqli_query($link,$sql))
     {
         echo "success";
+    }else
+    {
+        echo "fail";
     }
     //header("Location:View-Address.php");
 
