@@ -83,7 +83,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if(mysqli_query($link,$sql))
     {
-        echo "done";
+        echo "success";
     }
     //header("Location:View-Address.php");
 
