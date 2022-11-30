@@ -83,40 +83,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         
             $updatestatusPreviousStatus="UPDATE current_bill SET status = 'Paid' WHERE user_id = '$user_id' AND month = '$previous_month' AND user_account= '$accountNum'";
 
-        if ($stmt->execute() && mysqli_query($link, $update)) {
-            try {
-                //Server settings
-                $mail->isSMTP();
-                $mail->Host = 'smtp.gmail.com';
-                $mail->SMTPAuth = true;
-                $mail->Username = "ocawbms2021@gmail.com";
-                $mail->Password = "OEAWBMS2021";
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-                $mail->Port = 587;
-
-                //Recipients
-                $mail->setFrom("ocawbms2021@gmail.com", "OCAWBMS");
-                $mail->addAddress($data_user['user_email']);     // Add a recipient
-
-                // Content
-                $mail->isHTML(true);                                  // Set email format to HTML
-                $mail->Subject = 'Online Gas Bill Management System';
-
-                $mail->Body    = "<h3>Dear ".$data_user['user_name'].",</h3><br>You have successfully paid the amount. Here's your payment information,<br>
-                Name: $name <br>
-                NIC Number: $nic <br>
-                Amount: $amount <br>
-                Bill Month: $due_month <br>";
-               
-
-                $mail->send();
-
-            } catch (Exception $e) {
-                
-                 echo 'Something went wrong,try again later ';
-                
-                header("Location:User-Dashboard.php");
-            }
              
            
             
@@ -156,16 +122,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
  
             }
-            mysqli_close($link);
-            echo '<br/> <div class="alert alert-success alert-dismissible fade show" role="alert" style="top:60px;left:0;right:0;position:fixed;"><strong>';
-            echo 'You have successfully did the payment for <strong>'.$due_month.'</strong>';
-            echo 'You have successfully did the payment for <strong>'.$accountNum.'</strong>';
-            echo ' </strong> <button type="button" class="btn-close" data-dismiss="alert" aria-label="Close"> </button> </div>';            
-            exit();
+            header("Location:User-Dashboard.php");
             
-        } else {
-            echo "Something went wrong when executing. Please try again later.";
-        }
+        
     }
 
     else {

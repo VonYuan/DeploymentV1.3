@@ -236,29 +236,7 @@ if(!empty($previousmonthbill['meter']))
                                                             <span class="help-block"><?php echo $meter_err; ?></span>
                                                         </div>
                                                         
-                                                        
-                                                                
-                                                        <!--<div class="form-group">
-                                                            <label>Units Consumed for Month
-                                                                <?php # echo $bill_month?></label>
-                                                            <input type="text" class="form-control" name="units"
-                                                                required placeholder="Ex:100">
-                                                            <span class="help-block"><?php #echo $units_err; ?></span>
-                                                        </div>-->
-                                                                
-                                                        <!--<div class="form-group">
-                                                            <label>Charge for Gas Consumed (RM.)</label>
-                                                            <input type="text" class="form-control" name="charge"
-                                                                required placeholder="Ex:1000.00">
-                                                            <span class="help-block"><?php# echo $charge_err; ?></span>
-                                                        </div>-->
-
-                                                        <!--<div class="form-group">
-                                                            <label>Total Amount Due (RM)</label>
-                                                            <input type="text" class="form-control" name="total"
-                                                                placeholder="Ex:1500.00" required>
-                                                            <span class="help-block"><?php #echo $total_err; ?></span>
-                                                        </div>-->
+                                               
                                                         
                                                         <div class="form-group">
                                                             <label>Due Date</label>
