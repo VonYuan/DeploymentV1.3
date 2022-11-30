@@ -58,60 +58,31 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     #}
     
     $prevmeter = $_POST["prevmeter"];
-
+    
     $month = $bill_month;
     $due = $_POST['due'];
     $accountNum=$_POST['accountNum'];
+    
+
      
     $units=$meter-$prevmeter;
     $charge=(((1.1756*36.24975830/1000)*$units*7.93));
     $charges=round($charge,0);
     
-    $sql_totalamount="SELECT SUM(charge) FROM current_bill WHERE user_id= '$user_id' AND user_account=$accountNum";
+    $sql_totalamount="SELECT SUM(charge) FROM current_bill WHERE user_id= '$user_id' AND user_account='$accountNum'";
     $records_totalamount = mysqli_query($link, $sql_totalamount);
     $total = mysqli_fetch_array($records_totalamount);
     $total=$total[0]+$charges;
+    
+    
+    
+    
 
-    $sql = "INSERT INTO current_bill (user_id, user_account, month, meter, units, charge,charge_current_Month,total,overall_payment,credit ,amount_pay,due) 
-                                VALUES ('$user_id', '$accountNum', '$month', '$meter', '$units', '$charges','$charges', '$total','$total', '0','0','$bill_due_date')";
-    $update = "UPDATE image_upload SET status = 'Prepared' WHERE user_id = '$user_id'";
-    if(mysqli_query($link, $sql) && mysqli_query($link,$update)){
-        try {
-            //Server settings
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = "ocawbms2021@gmail.com";
-            $mail->Password = "OCAWBMS2021";
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            $mail->Port = 587;
+    $sql = "INSERT INTO current_bill (user_id, user_account, month, meter, units, charge,charge_current_Month,total,overall_payment, amount_pay,due) VALUES ('$user_id', '$accountNum', '$month', '$meter', '$units', '$charges','$charges', '$total','$total', '0','$bill_due_date')";
+    
 
-            //Recipients
-            $mail->setFrom("ocawbms2021@gmail.com", "OCAWBMS");
-            $mail->addAddress($user_email);     // Add a recipient
+    mysqli_query($link,$sql);
+    header("Location:View-Address.php");
 
-            // Content
-            $mail->isHTML(true);                                  // Set email format to HTML
-            $mail->Subject = 'Online Gas Billig System';
-
-            $mail->Body    = "Your Payable Bill was prepared. Please login to your account and pay it before dealine:<br>
-             <br>Best Regards, <br>OEAWBMS Team";
-
-        
-
-        } catch (Exception $e) {
-             echo 'Something went wrong,try again later';
-
-        }
-
-        header("Location:View-Address.php");
-    }
-
-    else{
-        echo ("Something ent wrong. Please try again later!".mysqli_error($link));
-    }
-
-    mysqli_close($link);
 }
-
 ?>
